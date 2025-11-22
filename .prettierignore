@@ -1,0 +1,34 @@
+# Ignore node_modules (always)
+node_modules
+
+# Build output
+dist
+build
+
+# Local environment files
+.env
+.env.* 
+
+# Logs
+*.log
+
+# Cache
+.vscode/*
+.cache
+.idea/
+
+# Public assets (optional, if you don’t want Prettier to touch these)
+public
+
+# Ignore lock files (optional, depending if you want Prettier to format them — usually not)
+package-lock.json
+yarn.lock
+
+# Ignore compiled files (just in case)
+*.tsbuildinfo
+
+# Ignore test snapshots (if you use snapshot testing)
+__snapshots__/
+
+# Ignore generated type declarations
+*.d.ts
