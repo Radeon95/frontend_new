@@ -77,6 +77,19 @@ useHead({
     <el-container>
       <el-header :class="['header-content', { scrolled: isScrolled }]">
         <div class="header-inner">
+          <div class="assured-container">
+            <img
+              alt="AMB Removals Assured"
+              class="assured-header"
+              src="https://www.moveassured.com/img/MA-logo-header.png"
+              loading="lazy"
+            />
+            <div class="mobile-phone">
+              <a href="tel:01164560653" class="phone-link-mobile">
+                <i class="fas fa-phone"></i> 0 (116) 456-0653
+              </a>
+            </div>
+          </div>
           <div class="logo">
             <a href="/">
               <img
@@ -97,25 +110,34 @@ useHead({
             <i class="fas fa-bars" v-if="!isMobileMenuOpen"></i>
             <i class="fas fa-times" v-else=""></i>
           </button>
-          <el-menu
-            :default-active="$route.path"
-            :ellipsis="false"
-            class="desktop-menu"
-            mode="horizontal"
-            router=""
-          >
-            <el-menu-item index="/" router="/">Home</el-menu-item>
-            <el-menu-item index="/galery" router="/galery">Gallery</el-menu-item>
-            <el-menu-item index="/about" router="/about">About Us</el-menu-item>
-            <el-menu-item index="/contact" router="/contact">Contact</el-menu-item>
-            <el-menu-item index="/quote" router="/quote"> Request Quote</el-menu-item>
-          </el-menu>
+          <div class="header-right-section">
+            <div class="header-phone">
+              <a href="tel:01164560653" class="phone-link">
+                <i class="fas fa-phone"></i> 0 (116) 456-0653
+              </a>
+            </div>
+            <el-menu
+              :default-active="$route.path"
+              :ellipsis="false"
+              class="desktop-menu"
+              mode="horizontal"
+              router=""
+            >
+              <el-menu-item index="/" router="/">Home</el-menu-item>
+              <el-menu-item index="/services" router="/services">Our Services</el-menu-item>
+              <el-menu-item index="/galery" router="/galery">Gallery</el-menu-item>
+              <el-menu-item index="/about" router="/about">About Us</el-menu-item>
+              <el-menu-item index="/contact" router="/contact">Contact</el-menu-item>
+              <el-menu-item index="/quote" router="/quote"> Request Quote</el-menu-item>
+            </el-menu>
+          </div>
         </div>
       </el-header>
       <transition name="slide">
         <div v-if="isMobileMenuOpen" class="mobile-menu-overlay">
           <div class="mobile-menu">
             <router-link to="/" @click="toggleMenu">Home</router-link>
+            <router-link to="/services" @click="toggleMenu">Our Services</router-link>
             <router-link to="/galery" @click="toggleMenu">Gallery</router-link>
             <router-link to="/about" @click="toggleMenu">About Us</router-link>
             <router-link to="/contact" @click="toggleMenu">Contact</router-link>
@@ -183,6 +205,9 @@ useHead({
             <ul>
               <li><el-link @click="$router.push('/')">Home</el-link></li>
               <li>
+                <el-link @click="$router.push('/services')">Our Services</el-link>
+              </li>
+              <li>
                 <el-link @click="$router.push('/about')">About Us</el-link>
               </li>
               <li>
@@ -228,7 +253,7 @@ useHead({
   padding: auto;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 890px) {
   .app-container {
     padding: 0;
   }
@@ -245,7 +270,7 @@ useHead({
   transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 891px) {
   .header-content {
     height: 115px;
   }
@@ -265,6 +290,8 @@ useHead({
   height: 100px;
   min-width: 115px;
   min-height: 100px;
+  position: relative;
+  z-index: 1;
 }
 
 .el-menu-item {
@@ -272,10 +299,9 @@ useHead({
   color: white;
   border-bottom: #cdbe22;
 }
-@media (max-width: 769px) {
+@media (max-width: 890px) {
   .header-content {
     height: 100px;
-    padding: 0;
   }
   .header-inner {
     padding: 10px;
@@ -296,6 +322,7 @@ useHead({
   .header-inner .logo a {
     width: 100%;
     height: 100%;
+    margin-left: 30%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -307,7 +334,8 @@ useHead({
     display: block;
   }
   .mobile-menu-toggle {
-    margin-left: auto;
+    position: absolute;
+    right: 15px;
     z-index: 2;
   }
   .fa-bars:before,
@@ -429,6 +457,36 @@ useHead({
   color: #007bff;
 }
 
+.header-right-section {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.header-phone {
+  display: flex;
+  align-items: center;
+}
+
+.header-phone .phone-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease;
+}
+
+.header-phone .phone-link:hover {
+  color: #409eff;
+}
+
+.header-phone .phone-link i {
+  font-size: 12px;
+}
+
 .desktop-menu {
   display: none;
   border: #545c64;
@@ -455,10 +513,10 @@ useHead({
   color: #545c64;
 } */
 
-@media (min-width: 768px) and (max-width: 1363px) {
+@media (min-width: 891px) and (max-width: 1444px) {
   .header-inner .logo {
     all: unset;
-    /* margin-left: 30%; */
+    margin-left: 10%;
     max-width: 300px;
     max-height: 60px;
     min-width: 115px;
@@ -538,7 +596,11 @@ useHead({
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 891px) {
+  .header-right-section {
+    display: flex;
+  }
+
   .desktop-menu {
     display: flex !important;
   }
@@ -549,7 +611,7 @@ useHead({
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 890px) {
   .social-links a {
     margin: 0 10px;
     font-size: 24px;
@@ -644,7 +706,7 @@ useHead({
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 769px) {
+@media (max-width: 890px) {
   .header-content.scrolled {
     padding: 0;
     height: 100px;
@@ -655,5 +717,63 @@ useHead({
 }
 .assured {
   width: 15vh;
+}
+
+.assured-container {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.assured-header {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.mobile-phone {
+  display: none;
+}
+
+@media (max-width: 890px) {
+  .assured-container {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .assured-header {
+    width: 40px;
+  }
+
+  .mobile-phone {
+    display: flex;
+    align-items: center;
+  }
+
+  .phone-link-mobile {
+    color: #e3d385;
+    text-decoration: none;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  .phone-link-mobile i {
+    font-size: 8px;
+  }
+
+  /* Ensure AMB logo doesn't overlap with Move Assured logo */
+  .header-inner .logo {
+    transform: translateX(-50%);
+  }
 }
 </style>

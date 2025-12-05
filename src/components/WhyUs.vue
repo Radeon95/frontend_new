@@ -54,6 +54,11 @@ const emit = defineEmits(['open-quote']);
 </template>
 
 <style scope>
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #ffffff;
+}
 .why-us-section {
   background: linear-gradient(365deg, #0a376fa1, #818181);
   text-align: center;
@@ -68,13 +73,13 @@ const emit = defineEmits(['open-quote']);
   padding: 1rem;
   font-size: 16px;
   line-height: 1.7;
-  color: #e5dfdf;
+  color: #fffcfc;
 }
 
 .insurance-content .headline {
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  color: #d6cccc;
+  color: #ffffff;
 }
 
 .insurance-content h3 {

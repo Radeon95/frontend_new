@@ -11,6 +11,7 @@ import About from './views/About.vue';
 import Contact from './views/Contact.vue';
 import Galery from './views/Galery.vue';
 import Quote from './views/Quote.vue';
+import OurService from './views/OurService.vue';
 
 // Определение маршрутов
 const routes = [
@@ -19,6 +20,7 @@ const routes = [
   { path: '/contact', component: Contact },
   { path: '/galery', component: Galery },
   { path: '/quote', name: 'Quote', component: Quote },
+  { path: '/services', component: OurService },
 ];
 
 // Создание маршрутизатора
