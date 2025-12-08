@@ -317,6 +317,7 @@ useHead({
   display: block;
   font-weight: bold;
   font-size: 35px;
+  line-height: 45px;
 }
 
 :deep(.el-dialog .el-input__wrapper),

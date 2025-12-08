@@ -12,6 +12,8 @@ import Contact from './views/Contact.vue';
 import Galery from './views/Galery.vue';
 import Quote from './views/Quote.vue';
 import OurService from './views/OurService.vue';
+import BussinesMoving from './views/BussinesMoving.vue';
+import HouseRemoval from './views/HomeRemoval.vue';
 
 // Определение маршрутов
 const routes = [
@@ -21,6 +23,8 @@ const routes = [
   { path: '/galery', component: Galery },
   { path: '/quote', name: 'Quote', component: Quote },
   { path: '/services', component: OurService },
+  { path: '/bussines-moving', component: BussinesMoving },
+  { path: '/house-removal', component: HouseRemoval },
 ];
 
 // Создание маршрутизатора
@@ -47,3 +51,5 @@ app.mount('#app');
 
 const fallback = document.getElementById('hero-fallback');
 if (fallback) fallback.remove();
+
+
