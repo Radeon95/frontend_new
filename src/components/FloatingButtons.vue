@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const isScrolled = ref(false);
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(false);
 const isOpen = ref(false);
 
 const handleScroll = () => {

@@ -13,7 +13,7 @@ function handleScroll() {
   isScrolled.value = window.scrollY > 50;
 }
 
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(false);
 
 function checkMobile() {
   isMobile.value = window.innerWidth <= 768;
