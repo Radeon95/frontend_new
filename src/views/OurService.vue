@@ -163,6 +163,17 @@ const services = [
                 {{ paragraph }}
               </p>
             </div>
+
+            <div class="service-cta" v-if="index === 0 || index === 1">
+              <el-button
+                type="primary"
+                size="large"
+                @click="$router.push(index === 0 ? '/house-removal' : '/business-moving')"
+                class="service-link-button"
+              >
+                {{ index === 0 ? 'Find Out More About House Moving' : 'Find Out More About Office Moving' }}
+              </el-button>
+            </div>
           </div>
         </el-card>
       </div>
@@ -342,6 +353,28 @@ const services = [
   text-align: justify;
 }
 
+.service-cta {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 2px solid #e9ecef;
+}
+
+.service-link-button {
+  background-color: #409eff;
+  border-color: #409eff;
+  font-size: 1rem;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+}
+
+.service-link-button:hover {
+  background-color: #66b1ff;
+  border-color: #66b1ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+}
+
 .cta-section {
   background: linear-gradient(135deg, #545c64 0%, #303133 100%);
   color: #fff;
@@ -438,6 +471,12 @@ const services = [
 
   .cta-section p {
     font-size: 1rem;
+  }
+
+  .service-link-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    width: 100%;
   }
 }
 

@@ -302,6 +302,7 @@ useHead({
 @media (max-width: 890px) {
   .header-content {
     height: 100px;
+    transition: none;
   }
   .header-inner {
     padding: 10px;
@@ -707,10 +708,17 @@ useHead({
 }
 
 @media (max-width: 890px) {
-  .header-content.scrolled {
-    padding: 0;
-    height: 100px;
+  .header-content {
+    transition: none;
   }
+  
+  .header-content.scrolled {
+    background-color: rgb(0 0 0 / 64%);
+    padding: 25px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 11%;
+  }
+  
   .header-content.scrolled .header-inner {
     padding: 10px;
   }

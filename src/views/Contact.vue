@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import stickyButtons from '../components/stickyButtons.vue';
+
+const router = useRouter();
+const isSubmitting = ref(false);
+const recaptchaToken = ref('');
+
 // Объявляем типы для глобального объекта window
 declare global {
   interface Window {
@@ -9,8 +15,6 @@ declare global {
     onRecaptchaExpired: () => void;
   }
 }
-const isSubmitting = ref(false);
-const recaptchaToken = ref('');
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -112,7 +116,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
   try {
-    isSubmitting.value = true; // Start loading
+    isSubmitting.value = true;
     // Validate form
     const valid = await formEl.validate();
     if (valid) {
@@ -130,14 +134,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         return;
       }
 
-      // Add recaptcha token to form data
-      const formDataWithRecaptcha = {
-        ...form,
-        recaptchaToken: recaptchaToken.value,
-      };
-
-      // Send email with all form data
-      await sendEmail(formDataWithRecaptcha);
+      // Send email with form data
+      await sendEmail(form);
 
       // Success message
       ElMessage({
@@ -147,9 +145,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
       // Reset the form after success
       formEl.resetFields();
+
+      // Redirect to thank you page after a short delay
+      setTimeout(() => {
+        router.push('/thank-you');
+      }, 1000);
     } else {
       // Error message if validation fails
-
       ElMessage({
         message: 'Please check the form for errors',
         type: 'error',
@@ -163,7 +165,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     });
     console.error('Error:', error);
   } finally {
-    isSubmitting.value = false; // End loading
+    isSubmitting.value = false;
   }
 };
 
@@ -173,28 +175,28 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
-// Send email function that posts all form data to the endpoint
+// Send email to /api/send-email endpoint
 const sendEmail = async (formData: typeof form) => {
-  // Log the data being sent
-  console.log('Sending form data:', formData);
-
   try {
-    // Send POST request to the endpoint with all form data
     const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+      }),
     });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json();
-    console.log('Response:', data);
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('Error sending email:', error);
     throw error;
@@ -275,6 +277,9 @@ useHead({
                 </p>
                 <p>
                   <a href="mailto:support@ambremovals.com">support@ambremovals.com</a>
+                </p>
+                <p>
+                  <a href="mailto:sales@ambremovals.com">sales@ambremovals.com</a>
                 </p>
               </div>
             </div>
