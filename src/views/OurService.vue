@@ -168,7 +168,7 @@ const services = [
               <el-button
                 type="primary"
                 size="large"
-                @click="$router.push(index === 0 ? '/house-removal' : '/bussines-moving')"
+                @click="$router.push(index === 0 ? '/house-removal' : '/business-moving')"
                 class="service-link-button"
               >
                 {{ index === 0 ? 'Find Out More About House Moving' : 'Find Out More About Office Moving' }}

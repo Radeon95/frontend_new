@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue';
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useHead } from '@vueuse/head';
 import { ElButton, ElInput, ElMessage, type FormInstance, type FormRules } from 'element-plus';
-import QuoteForm from '@/components/QuoteForm.vue';
 import stickyButtons from '@/components/stickyButtons.vue';
+
+const router = useRouter();
 
 const phoneNumber = '0 (116) 456-0653';
 const phoneLink = 'tel:0 (116) 456-0653';
-const showQuoteModal = ref(false);
 
 const sidebarFormRef = ref<FormInstance>();
 const sidebarForm = reactive({
@@ -33,18 +34,128 @@ const sidebarRules = reactive<FormRules>({
   message: [{ required: false }],
 });
 
+// Convert date to DD-MM-YYYY format
+const formatDate = (dateString: string): string => {
+  if (!dateString) return '';
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  } catch {
+    return '';
+  }
+};
+
+// Split name into first_name and last_name
+const splitName = (fullName: string): { first_name: string; last_name: string } => {
+  if (!fullName) return { first_name: '', last_name: '' };
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length === 1) {
+    return { first_name: parts[0], last_name: '' };
+  }
+  return {
+    first_name: parts[0],
+    last_name: parts.slice(1).join(' '),
+  };
+};
+
+// Transform sidebar form data to API schema format
+const transformFormData = (formData: typeof sidebarForm) => {
+  const { first_name, last_name } = splitName(formData.name);
+  
+  return {
+    first_name: first_name || '',
+    last_name: last_name || '',
+    company_name: '',
+    email: formData.email || '',
+    phone: formData.phone || '',
+    alt_phone: '',
+    move_date: formatDate(formData.moveDate),
+    move_date_app: '',
+    // Moving From
+    mf_add1: '',
+    mf_add2: '',
+    mf_city: '',
+    mf_postcode: formData.fromPostcode || '',
+    mfproptype: '',
+    mf_floornumber: '',
+    mf_bedroom: '',
+    mf_lift: '',
+    movingfrompostcodedata: {},
+    // Moving To
+    mt_add1: '',
+    mt_add2: '',
+    mt_city: '',
+    mt_postcode: formData.toPostcode || '',
+    mtproptype: '',
+    mt_floornumber: '',
+    mt_bedroom: '',
+    mt_lift: '',
+    movingtopostcodedata: {},
+    // Additional fields
+    packagename: '',
+    source: '',
+    // Comments
+    comments: formData.message || '',
+  };
+};
+
 const sendEmail = async (formData: typeof sidebarForm) => {
   try {
-    const response = await fetch('/api/send-quote', {
+    const apiData = transformFormData(formData);
+    const response = await fetch('https://api.app.i-mve.com/job/user/67bf59d16a3e7f36cbc45694', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(apiData),
     });
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     return await response.json();
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending quote:', error);
     throw error;
+  }
+};
+
+// Send email notification to /api/send-email
+const sendEmailNotification = async (formData: typeof sidebarForm) => {
+  try {
+    const response = await fetch('/api/send-quote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        altPhone: '', // Not available in form
+        fromPostcode: formData.fromPostcode || '',
+        fromAddress: '', // Not available in form
+        fromCity: '', // Not available in form
+        fromPropertyType: '', // Not available in form
+        toPostcode: formData.toPostcode || '',
+        toAddress: '', // Not available in form
+        toCity: '', // Not available in form
+        toPropertyType: '', // Not available in form
+        pakage: '', // Not available in form, backend expects 'pakage' (typo)
+        details: formData.message || '', // Using message as details
+        consent: false, // Not available in form
+        promoCode: '', // Not available in form
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error sending email notification:', error);
+    // Don't throw error - email notification failure shouldn't block the main flow
+    return null;
   }
 };
 
@@ -54,8 +165,14 @@ const submitSidebarForm = async (formEl: FormInstance | undefined) => {
     const valid = await formEl.validate();
     if (valid) {
       await sendEmail(sidebarForm);
+      // Also send email notification
+      await sendEmailNotification(sidebarForm);
       ElMessage({ message: 'Quote sent successfully!', type: 'success' });
       formEl.resetFields();
+      // Redirect to thank you page after a short delay
+      setTimeout(() => {
+        router.push('/thank-you');
+      }, 1000);
     } else {
       ElMessage({ message: 'Please check the form for errors', type: 'error' });
     }
@@ -64,40 +181,29 @@ const submitSidebarForm = async (formEl: FormInstance | undefined) => {
   }
 };
 
-let scrollY = 0;
-const handleQuoteModal = (val: boolean) => {
-  if (val) {
-    scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-  } else {
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.overflow = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollY);
+const scrollToForm = () => {
+  const formElement = document.getElementById('quote-form');
+  if (formElement) {
+    formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 };
 
-watch(showQuoteModal, handleQuoteModal);
-
 useHead({
-  title: 'Trusted House Removals in South Leicestershire | AMB Removals',
+  title: 'Professional Business & Commercial Removals in South Leicestershire | AMB Removals',
   meta: [
     {
       name: 'description',
       content:
-        'Local, reliable and fully insured home-moving across Lutterworth, Leicester and South Leicestershire.',
+        'Expert office and commercial relocations across Lutterworth, Leicester and South Leicestershire. Fully insured, minimal downtime, transparent pricing.',
     },
     {
       property: 'og:title',
-      content: 'Trusted House Removals in South Leicestershire | AMB Removals',
+      content: 'Professional Business & Commercial Removals in South Leicestershire | AMB Removals',
     },
     {
       property: 'og:description',
       content:
-        'Local, reliable and fully insured home-moving across Lutterworth, Leicester and South Leicestershire.',
+        'Expert office and commercial relocations across Lutterworth, Leicester and South Leicestershire. Fully insured, minimal downtime, transparent pricing.',
     },
     {
       property: 'og:image',
@@ -109,7 +215,7 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://ambremovals.com/landing-page-1',
+      content: 'https://ambremovals.com/business-moving',
     },
     {
       name: 'robots',
@@ -119,7 +225,7 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://ambremovals.com/landing-page-1',
+      href: 'https://ambremovals.com/business-moving',
     },
   ],
   script: [
@@ -153,7 +259,7 @@ useHead({
           </div>
         </div>
 
-        <div class="form-card">
+        <div class="form-card" id="quote-form">
           <h3>Get A Free Quote</h3>
           <el-form
             :model="sidebarForm"
@@ -248,7 +354,7 @@ useHead({
           </div>
 
           <div class="exceptional-cta">
-            <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+            <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
             <a :href="phoneLink" class="cta-outline-blue">CALL US: {{ phoneNumber }}</a>
           </div>
         </div>
@@ -285,7 +391,7 @@ useHead({
             stays productive throughout the process.
           </p>
           <div class="projects-cta">
-            <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+            <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
             <a :href="phoneLink" class="cta-outline-blue">CALL US: {{ phoneNumber }}</a>
           </div>
         </div>
@@ -333,7 +439,7 @@ useHead({
             team supporting you at every stage.
           </p>
           <div class="projects-cta">
-            <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+            <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
             <a :href="phoneLink" class="cta-outline-blue">CALL US: {{ phoneNumber }}</a>
           </div>
         </div>
@@ -403,7 +509,7 @@ useHead({
             </div>
           </div>
           <div class="projects-cta guarantees-cta">
-            <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+            <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
             <a :href="phoneLink" class="cta-outline-blue">CALL US: {{ phoneNumber }}</a>
           </div>
         </div>
@@ -420,7 +526,7 @@ useHead({
             how we work and what to expect.
           </p>
           <div class="projects-cta">
-            <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+            <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
             <a :href="phoneLink" class="cta-outline-blue">CALL US: {{ phoneNumber }}</a>
           </div>
         </div>
@@ -478,23 +584,11 @@ useHead({
         <h2>Ready To Make Your Move?</h2>
         <p>Get a free, no-obligation quote today and let AMB Removals handle your commercial relocation smoothly and professionally.</p>
         <div class="projects-cta">
-          <button class="cta-solid" @click="showQuoteModal = true">GET A FREE QUOTE</button>
+          <button class="cta-solid" @click="scrollToForm">GET A FREE QUOTE</button>
           <a :href="phoneLink" class="cta-outline-white">CALL US: {{ phoneNumber }}</a>
         </div>
       </div>
     </section>
-
-    <el-dialog
-      :teleported="false"
-      v-model="showQuoteModal"
-      title="About Your Move..."
-      top="5vh"
-      :style="{ backgroundColor: '#dfdfdf' }"
-      class="quote-dialog"
-      :close-on-click-modal="false"
-    >
-      <QuoteForm variant="modal" />
-    </el-dialog>
   </div>
 </template>
 
@@ -1542,128 +1636,6 @@ useHead({
 
 .cta-outline-white:hover {
   background: rgba(255, 255, 255, 0.1);
-}
-
-/* QUOTE MODAL STYLES */
-:deep(.el-dialog .quote-container) {
-  padding: 1rem;
-  margin: 0 auto;
-  max-width: 100%;
-}
-
-:deep(.el-dialog .quote-form) {
-  gap: 0rem;
-  padding-top: 0;
-}
-
-:deep(.el-dialog .form-group) {
-  margin-bottom: 0.2rem;
-}
-
-:deep(.quote-dialog .el-dialog__header) {
-  justify-content: center;
-  text-align: center;
-}
-
-:deep(.quote-dialog .el-dialog__title) {
-  margin: 0 auto;
-  display: block;
-  font-weight: bold;
-  font-size: 35px;
-  line-height: 45px;
-}
-
-:deep(.el-dialog .el-input__wrapper),
-:deep(.el-dialog .el-textarea__inner),
-:deep(.el-dialog .el-select .el-input__wrapper) {
-  padding: 6px 10px;
-  font-size: 16px;
-  background-color: #fff;
-}
-
-:deep(.el-dialog .el-button) {
-  padding: 8px 20px;
-  font-size: 18px;
-  width: 30%;
-  margin-left: 0;
-}
-
-:deep(.el-dialog .el-dialog__headerbtn) {
-  font-size: 40px;
-  top: 0.5rem;
-}
-
-:deep(.el-dialog h3) {
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-:deep(.el-dialog .el-select__wrapper) {
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  :deep(.el-dialog) {
-    width: 95%;
-  }
-  :deep(.el-dialog .quote-container) {
-    padding: 1rem;
-    margin: 0 auto;
-    max-width: 100%;
-  }
-  :deep(.el-dialog .el-button) {
-    padding: 8px 20px;
-    font-size: 14px;
-    width: 30%;
-    margin-left: 0%;
-  }
-  :deep(.quote-dialog .el-dialog) {
-    width: 90% !important;
-    margin: 0 auto !important;
-  }
-  :deep(.el-dialog .el-checkbox__inner) {
-    margin: -0.5rem;
-  }
-
-  :deep(.el-dialog .el-checkbox__label) {
-    font-size: 16px;
-    padding-left: 12px;
-  }
-
-  :deep(.el-dialog .el-input__wrapper),
-  :deep(.el-dialog .el-textarea__inner),
-  :deep(.el-dialog .el-select .el-input__wrapper) {
-    font-size: 18px;
-  }
-  :deep(.el-form-item--label-top .el-form-item__label) {
-    font-size: 16px;
-    display: flex;
-    justify-content: flex-start;
-  }
-  :deep(.el-dialog h3) {
-    font-size: 19px;
-  }
-}
-
-@media (max-width: 430px) {
-  :deep(.el-dialog .el-checkbox__label) {
-    font-size: 14px;
-    padding-left: 12px;
-  }
-}
-
-@media (max-width: 375px) {
-  :deep(.el-dialog .el-checkbox__label) {
-    font-size: 12px;
-    padding-left: 12px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  :deep(.el-dialog) {
-    width: 70%;
-  }
 }
 
 @media (max-width: 960px) {

@@ -32,7 +32,10 @@ useHead({
 });
 
 import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
+
+const router = useRouter();
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -92,18 +95,128 @@ const rules = reactive<FormRules>({
   promoCode: [{ required: false }],
 });
 
+// Convert date to DD-MM-YYYY format
+const formatDate = (dateString: string): string => {
+  if (!dateString) return '';
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  } catch {
+    return '';
+  }
+};
+
+// Split name into first_name and last_name
+const splitName = (fullName: string): { first_name: string; last_name: string } => {
+  if (!fullName) return { first_name: '', last_name: '' };
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length === 1) {
+    return { first_name: parts[0], last_name: '' };
+  }
+  return {
+    first_name: parts[0],
+    last_name: parts.slice(1).join(' '),
+  };
+};
+
+// Transform form data to API schema format
+const transformFormData = (formData: typeof form) => {
+  const { first_name, last_name } = splitName(formData.name);
+  
+  return {
+    first_name: first_name || '',
+    last_name: last_name || '',
+    company_name: '',
+    email: formData.email || '',
+    phone: formData.phone || '',
+    alt_phone: '',
+    move_date: formatDate(formData.moveDate),
+    // Moving From
+    mf_add1: '',
+    mf_add2: '',
+    mf_city: formData.fromCity || '',
+    mf_postcode: formData.fromPostcode || '',
+    mfproptype: formData.fromPropertyType || '',
+    mf_floornumber: '',
+    mf_bedroom: '',
+    mf_lift: '',
+    // Moving To
+    mt_add1: '',
+    mt_add2: '',
+    mt_city: formData.toCity || '',
+    mt_postcode: formData.toPostcode || '',
+    mtproptype: formData.toPropertyType || '',
+    mt_floornumber: '',
+    mt_bedroom: '',
+    mt_lift: '',
+    // Comments - combine details, message, package, and promoCode if needed
+    comments: [
+      formData.details,
+      formData.message,
+      formData.package ? `Package: ${formData.package}` : '',
+      formData.promoCode ? `Promo Code: ${formData.promoCode}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n'),
+  };
+};
+
 const sendEmail = async (formData: typeof form) => {
   try {
-    const response = await fetch('/api/send-quote', {
+    const apiData = transformFormData(formData);
+    const response = await fetch('https://api.app.i-mve.com/job/user/67bf59d16a3e7f36cbc45694', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(apiData),
     });
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     return await response.json();
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending quote:', error);
     throw error;
+  }
+};
+
+// Send email notification to /api/send-email
+const sendEmailNotification = async (formData: typeof form) => {
+  try {
+    const response = await fetch('/api/send-quote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        altPhone: '', // Not available in form
+        fromPostcode: formData.fromPostcode || '',
+
+        fromCity: formData.fromCity || '',
+        fromPropertyType: formData.fromPropertyType || '',
+        toPostcode: formData.toPostcode || '',
+        toCity: formData.toCity || '',
+        toPropertyType: formData.toPropertyType || '',
+        pakage: formData.package || '', // Backend expects 'pakage' (typo)
+        details: formData.details || '',
+        consent: formData.consent || false,
+        promoCode: formData.promoCode || '',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error sending email notification:', error);
+    // Don't throw error - email notification failure shouldn't block the main flow
+    return null;
   }
 };
 
@@ -122,8 +235,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     const valid = await formEl.validate();
     if (valid) {
       await sendEmail(form);
+      // Also send email notification
+      await sendEmailNotification(form);
       ElMessage({ message: 'Quote sent successfully!', type: 'success' });
       formEl.resetFields();
+      // Redirect to thank you page after a short delay
+      setTimeout(() => {
+        router.push('/thank-you');
+      }, 1000);
     } else {
       scrollToFirstInvalidField();
       ElMessage({ message: 'Please check the form for errors', type: 'error' });
