@@ -184,6 +184,29 @@ const services = [
       ],
     },
   },
+  {
+    icon: Van,
+    title: 'Man with a Van',
+    content: {
+      intro: [
+        '🚐 Man with a Van in Leicester – Affordable, Flexible Moving',
+        "Need something moved quickly and affordably? Our man with a van service is perfect for single items, student moves, small flat relocations, and marketplace collections across Leicester and the East Midlands.",
+      ],
+      featuresTitle: "✅ What's Included in Our Man with a Van Service:",
+      features: [
+        '🚛 Spacious van suitable for single items up to full small flat loads',
+        '💪 Full loading and unloading assistance included',
+        '⏱️ Same-day and next-day availability (subject to schedule)',
+        '🔐 Fully insured for your peace of mind',
+        '💰 Transparent, competitive pricing with no hidden fees',
+      ],
+      closing: [
+        "Whether you need a sofa collected, a student room moved, or an eBay purchase delivered, we've got you covered.",
+        '📞 Book Your Man with a Van Today Save time and hassle with our affordable, reliable man with a van service. Contact AMB Removals for a quick, no-obligation quote.',
+        '👉 Get your FREE quote today – flexible, affordable and fully insured.',
+      ],
+    },
+  },
 ];
 </script>
 
@@ -247,14 +270,42 @@ const services = [
               </p>
             </div>
 
-            <div class="service-cta" v-if="index === 0 || index === 1">
+            <div class="service-cta">
               <el-button
+                v-if="index === 0"
                 type="primary"
                 size="large"
-                @click="$router.push(index === 0 ? '/house-removal' : '/business-moving')"
+                @click="$router.push('/house-removal')"
                 class="service-link-button"
               >
-                {{ index === 0 ? 'Find Out More About House Moving' : 'Find Out More About Office Moving' }}
+                Find Out More About House Moving
+              </el-button>
+              <el-button
+                v-else-if="index === 1"
+                type="primary"
+                size="large"
+                @click="$router.push('/business-moving')"
+                class="service-link-button"
+              >
+                Find Out More About Office Moving
+              </el-button>
+              <el-button
+                v-else-if="index === 2"
+                type="primary"
+                size="large"
+                @click="$router.push('/packing-services')"
+                class="service-link-button"
+              >
+                Find Out More About Packing Services
+              </el-button>
+              <el-button
+                v-else-if="index === 3"
+                type="primary"
+                size="large"
+                @click="$router.push('/man-with-van')"
+                class="service-link-button"
+              >
+                Find Out More About Man with a Van
               </el-button>
             </div>
           </div>

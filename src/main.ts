@@ -13,6 +13,8 @@ import OurService from './views/OurService.vue';
 import BusinessMoving from './views/BusinessMoving.vue';
 import HouseRemoval from './views/HomeRemoval.vue';
 import ThankYou from './views/ThankYou.vue';
+import PackingServices from './views/PackingServices.vue';
+import ManWithVan from './views/ManWithVan.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -23,6 +25,8 @@ const routes = [
   { path: '/services', component: OurService },
   { path: '/business-moving', component: BusinessMoving },
   { path: '/house-removal', component: HouseRemoval },
+  { path: '/packing-services', component: PackingServices },
+  { path: '/man-with-van', component: ManWithVan },
   { path: '/thank-you', name: 'ThankYou', component: ThankYou },
 ];
 
