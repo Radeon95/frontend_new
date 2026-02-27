@@ -1,32 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-WDPMWK8M');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FN7BPF6HZ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-9FN7BPF6HZ');
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -70,41 +44,11 @@
     />
     <meta name="twitter:image" content="https://ambremovals.com/images/AMB_Removals.jpg" />
 
-    <!-- Critical Hero Section Styles -->
     <style>
       html,
       body {
         margin: 0;
         padding: 0;
-      }
-      #hero-fallback {
-        position: relative;
-        height: 100vh;
-        overflow: hidden;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-      }
-      #hero-fallback img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        top: 0;
-        left: 0;
-        z-index: -1;
-      }
-      #hero-fallback div {
-        text-align: center;
-        padding-top: 30vh;
-        color: bisque;
-        font-family: 'Inter', sans-serif;
-      }
-      #hero-fallback h1 {
-        font-size: 2.5rem;
-        margin: 0;
-      }
-      #hero-fallback p {
-        font-size: 1.5rem;
-        margin-top: 20px;
       }
     </style>
 
@@ -226,44 +170,85 @@
       }
     </script>
 
-    <!-- TrustPilot -->
-    <script
-      async
-      src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
-    ></script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-WDPMWK8M"
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TNVQRJL3"
         height="0"
         width="0"
         style="display: none; visibility: hidden"
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <!-- Inline Fallback Hero Section -->
-    <div id="hero-fallback">
-      <img
-        src="/AMB_Removals.jpg"
-        alt="AMB Removals Team from ambremovals"
-        decoding="async"
-        fetchpriority="high"
-      />
-      <div>
-        <h1>AMB Removals Limited</h1>
-        <p>Your Trusted Family-Run Removals Company</p>
-      </div>
-    </div>
-
     <!-- App Mount Point -->
     <div id="app" role="main" aria-label="Main content"></div>
-
     <noscript>
-      <p style="text-align: center; color: red">Please enable JavaScript to use this website.</p>
+      <div style="max-width:800px;margin:40px auto;padding:20px;font-family:'Inter',sans-serif;color:#333">
+        <h1>AMB Removals Limited — Professional Moving Services</h1>
+        <p>AMB Removals is a fully insured, family-run removals company based in Leicester, offering reliable and affordable moving services across the UK.</p>
+        <h2>Our Services</h2>
+        <ul>
+          <li>House Removals</li>
+          <li>Office &amp; Business Removals</li>
+          <li>Packing &amp; Unpacking</li>
+          <li>Man with a Van</li>
+          <li>Furniture Assembly</li>
+          <li>Storage Solutions</li>
+        </ul>
+        <h2>Areas We Cover</h2>
+        <p>Leicester, Loughborough, Hinckley, Market Harborough, Coalville, Derby, Nottingham, Coventry, Northampton, Milton Keynes, Rugby, and more.</p>
+        <h2>Contact Us</h2>
+        <p>Phone: <a href="tel:01164560653">0 (116) 456-0653</a></p>
+        <p>Email: <a href="mailto:info@ambremovals.com">info@ambremovals.com</a></p>
+        <p>WhatsApp: <a href="https://wa.me/447853451275">+44 7853 451275</a></p>
+        <p><a href="https://ambremovals.com/quote">Request a Free Quote</a></p>
+      </div>
     </noscript>
 
     <script type="module" src="/src/main.ts"></script>
+
+    <!-- Google Tag Manager (deferred to not block rendering) -->
+    <script>
+      window.addEventListener('load', function () {
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TNVQRJL3');
+      });
+    </script>
+
+    <!-- Google Analytics (deferred) -->
+    <script>
+      window.addEventListener('load', function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9FN7BPF6HZ';
+        document.head.appendChild(s);
+        s.onload = function () {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', 'G-9FN7BPF6HZ');
+        };
+      });
+    </script>
+
+    <!-- TrustPilot (deferred) -->
+    <script>
+      window.addEventListener('load', function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
+        document.head.appendChild(s);
+      });
+    </script>
   </body>
 </html>

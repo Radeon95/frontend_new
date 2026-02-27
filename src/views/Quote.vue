@@ -4,7 +4,7 @@ import QuoteForm from '../components/QuoteForm.vue';
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Request a Quote | AMB Removals',
+  title: 'Request a Moving Quote - Free Removal Estimate',
   meta: [
     {
       name: 'description',
@@ -29,15 +29,49 @@ useHead({
       property: 'og:image',
       content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Request a Quote | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Request your moving quote from ambremovals – trusted experts in local and nationwide removals across the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [{ rel: 'canonical', href: 'https://ambremovals.com/quote' }],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Request a Quote', item: 'https://ambremovals.com/quote' },
+        ],
+      }),
+    },
+  ],
 });
 </script>
 
 <template>
   <div class="introImage">
     <stickyButtons />
-    <h2>About Your Move...</h2>
+    <h1>Request a Moving Quote</h1>
   </div>
   <QuoteForm />
 </template>
@@ -56,7 +90,7 @@ useHead({
   text-align: center;
   position: relative;
 }
-.introImage h2 {
+.introImage h1 {
   font-size: 2.5rem;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.5);
@@ -70,7 +104,7 @@ useHead({
     margin-top: 8rem;
   }
 
-  .introImage h2 {
+  .introImage h1 {
     font-size: 1.5rem;
     padding: 0.5rem;
   }
@@ -82,7 +116,7 @@ useHead({
     padding: 1.5rem;
   }
 
-  .introImage h2 {
+  .introImage h1 {
     font-size: 2rem;
     padding: 0.5rem 1rem;
   }

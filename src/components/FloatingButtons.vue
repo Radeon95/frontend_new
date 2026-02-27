@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const isScrolled = ref(false);
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(false);
 const isOpen = ref(false);
 
 const handleScroll = () => {
@@ -26,7 +26,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <>
+  <div>
   <transition name="fade">
     <a
       v-if="!isScrolled"
@@ -184,6 +184,7 @@ onUnmounted(() => {
     <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }">
       <i class="fa-solid fa-phone"></i>
     </a>
+  </div>
   </div>
 </template>
 

@@ -14,7 +14,7 @@ const partnerLogos = ref([
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'About Us | AMB Removals - Trusted UK Movers',
+  title: 'About Us - Trusted UK Movers',
   meta: [
     {
       name: 'description',
@@ -32,7 +32,7 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'About Us | AMB Removals - Trusted UK Movers',
+      content: 'About Us - Trusted UK Movers | AMB Removals',
     },
     {
       property: 'og:description',
@@ -41,7 +41,7 @@ useHead({
     },
     {
       property: 'og:image',
-      content: 'https://ambremovals.com/images/AMB_Removals.jpg',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
     {
       property: 'og:url',
@@ -51,11 +51,45 @@ useHead({
       property: 'og:type',
       content: 'website',
     },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'About Us - Trusted UK Movers | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Get to know AMB Removals and the ambremovals team. Learn what makes us one of the most trusted moving companies in the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [
     {
       rel: 'canonical',
       href: 'https://ambremovals.com/about',
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'About Us', item: 'https://ambremovals.com/about' },
+        ],
+      }),
     },
   ],
 });

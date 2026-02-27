@@ -96,7 +96,7 @@ useHead({
                 alt="AMB Removals Limited"
                 class="logo"
                 src="/src/assets/AmbLogo.png"
-                loading="lazy"
+                loading="eager"
               />
             </a>
           </div>
@@ -116,20 +116,14 @@ useHead({
                 <i class="fas fa-phone"></i> 0 (116) 456-0653
               </a>
             </div>
-            <el-menu
-              :default-active="$route.path"
-              :ellipsis="false"
-              class="desktop-menu"
-              mode="horizontal"
-              router=""
-            >
-              <el-menu-item index="/" router="/">Home</el-menu-item>
-              <el-menu-item index="/services" router="/services">Our Services</el-menu-item>
-              <el-menu-item index="/galery" router="/galery">Gallery</el-menu-item>
-              <el-menu-item index="/about" router="/about">About Us</el-menu-item>
-              <el-menu-item index="/contact" router="/contact">Contact</el-menu-item>
-              <el-menu-item index="/quote" router="/quote"> Request Quote</el-menu-item>
-            </el-menu>
+            <nav class="desktop-menu" aria-label="Main navigation">
+              <router-link to="/" :class="['nav-link', { active: $route.path === '/' }]">Home</router-link>
+              <router-link to="/services" :class="['nav-link', { active: $route.path === '/services' }]">Our Services</router-link>
+              <router-link to="/galery" :class="['nav-link', { active: $route.path === '/galery' }]">Gallery</router-link>
+              <router-link to="/about" :class="['nav-link', { active: $route.path === '/about' }]">About Us</router-link>
+              <router-link to="/contact" :class="['nav-link', { active: $route.path === '/contact' }]">Contact</router-link>
+              <router-link to="/quote" :class="['nav-link', { active: $route.path === '/quote' }]">Request Quote</router-link>
+            </nav>
           </div>
         </div>
       </el-header>
@@ -203,22 +197,12 @@ useHead({
           <div class="footer-nav">
             <h4>Navigation</h4>
             <ul>
-              <li><el-link @click="$router.push('/')">Home</el-link></li>
-              <li>
-                <el-link @click="$router.push('/services')">Our Services</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/about')">About Us</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/contact')">Contact</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/galery')">Gallery</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/quote')">Get a Quote</el-link>
-              </li>
+              <li><router-link to="/">Home</router-link></li>
+              <li><router-link to="/services">Our Services</router-link></li>
+              <li><router-link to="/about">About Us</router-link></li>
+              <li><router-link to="/contact">Contact</router-link></li>
+              <li><router-link to="/galery">Gallery</router-link></li>
+              <li><router-link to="/quote">Get a Quote</router-link></li>
             </ul>
           </div>
           <div class="areas">
@@ -294,14 +278,10 @@ useHead({
   z-index: 1;
 }
 
-.el-menu-item {
-  background-color: #818a94;
-  color: white;
-  border-bottom: #cdbe22;
-}
 @media (max-width: 890px) {
   .header-content {
     height: 100px;
+    transition: none;
   }
   .header-inner {
     padding: 10px;
@@ -424,8 +404,12 @@ useHead({
   margin-bottom: 8px;
 }
 
-.footer-nav .el-link {
+.footer-nav a {
   color: bisque;
+  text-decoration: none;
+}
+.footer-nav a:hover {
+  text-decoration: underline;
 }
 .areas {
   flex: 1;
@@ -489,29 +473,27 @@ useHead({
 
 .desktop-menu {
   display: none;
-  border: #545c64;
+  gap: 0;
 }
-.el-menu-item {
-  margin-bottom: -20px;
-  border: #545c64;
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #818a94;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
-
-.el-menu-item.is-active:hover {
+.nav-link:hover,
+.nav-link:focus {
   background-color: #545c64;
 }
-.el-menu-item:not(.is-disabled):hover {
+.nav-link.active {
   background-color: #545c64;
+  color: #409eff;
 }
-.el-menu-item:not(.is-disabled):focus {
-  background-color: #545c64;
-}
-/* .el-menu-item:hover {
-  background-color: #2fe1de;
-  color: #2fe1de;
-}
-.el-menu-item:focus {
-  color: #545c64;
-} */
 
 @media (min-width: 891px) and (max-width: 1444px) {
   .header-inner .logo {
@@ -560,11 +542,6 @@ useHead({
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1000;
 }
-.el-menu-item.is-active {
-  background-color: #545c64;
-  color: #409eff;
-  border-bottom: #818a94;
-}
 
 .slide-enter-active,
 .slide-leave-active {
@@ -602,7 +579,7 @@ useHead({
   }
 
   .desktop-menu {
-    display: flex !important;
+    display: flex;
   }
 
   .mobile-menu-toggle,
@@ -707,10 +684,17 @@ useHead({
 }
 
 @media (max-width: 890px) {
-  .header-content.scrolled {
-    padding: 0;
-    height: 100px;
+  .header-content {
+    transition: none;
   }
+  
+  .header-content.scrolled {
+    background-color: rgb(0 0 0 / 64%);
+    padding: 25px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 11%;
+  }
+  
   .header-content.scrolled .header-inner {
     padding: 10px;
   }

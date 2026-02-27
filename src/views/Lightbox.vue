@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
 
 const props = defineProps({
   images: Array as () => string[],
@@ -46,7 +46,11 @@ watch(
   }
 );
 
-const isMobile = computed(() => window.innerWidth < 768);
+const isMobile = ref(false);
+
+function checkMobile() {
+  isMobile.value = window.innerWidth < 768;
+}
 
 function trapTabKey(e: KeyboardEvent) {
   if (!props.visible) return;
@@ -116,12 +120,15 @@ function disableBodyScroll(e: Event) {
 }
 
 onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
   window.addEventListener('keydown', handleKey, { passive: false });
   window.addEventListener('wheel', disableBodyScroll, { passive: false });
   window.addEventListener('touchmove', disableBodyScroll, { passive: false });
 });
 
 onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkMobile);
   window.removeEventListener('keydown', handleKey);
   window.removeEventListener('wheel', disableBodyScroll);
   window.removeEventListener('touchmove', disableBodyScroll);

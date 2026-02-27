@@ -2,7 +2,7 @@
   <div class="gallery">
     <stickyButtons />
     <div class="gallery-section">
-      <h2 class="section-title">Gallery</h2>
+      <h1 class="section-title">Our Removals Gallery</h1>
       <!-- Page optimized for ambremovals SEO keyword -->
       <div class="gallery-grid">
         <img
@@ -55,7 +55,7 @@ function getAlt(path: string) {
   return `ambremovals / AMB Removals – ${name}`;
 }
 useHead({
-  title: 'Gallery',
+  title: 'Our Removals Gallery - AMB Removals Photo Showcase',
   meta: [
     {
       name: 'description',
@@ -71,6 +71,46 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      property: 'og:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/galery',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [{ rel: 'canonical', href: 'https://ambremovals.com/galery' }],
   script: [
@@ -82,6 +122,17 @@ useHead({
         name: 'ambremovals Gallery',
         url: 'https://ambremovals.com/galery',
         description: 'Gallery of ambremovals moving and packing services across the UK.',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Gallery', item: 'https://ambremovals.com/galery' },
+        ],
       }),
     },
   ],

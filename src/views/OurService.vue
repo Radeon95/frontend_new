@@ -4,7 +4,7 @@ import stickyButtons from '../components/stickyButtons.vue';
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Our Services | AMB Removals - Professional Moving Services',
+  title: 'Our Services - Professional Moving Solutions',
   meta: [
     {
       name: 'description',
@@ -20,11 +20,94 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      property: 'og:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/services',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [
     {
       rel: 'canonical',
       href: 'https://ambremovals.com/services',
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: 'Moving Services',
+        provider: {
+          '@type': 'MovingCompany',
+          name: 'AMB Removals',
+          url: 'https://ambremovals.com',
+          telephone: '+44 116 456 0653',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '42 The Crescent, Blaby',
+            addressLocality: 'Leicester',
+            addressRegion: 'Leicestershire',
+            postalCode: 'LE8 4FN',
+            addressCountry: 'GB',
+          },
+        },
+        areaServed: {
+          '@type': 'Place',
+          name: 'Leicestershire and the UK',
+        },
+        description:
+          'Professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Our Services', item: 'https://ambremovals.com/services' },
+        ],
+      }),
     },
   ],
 });
@@ -162,6 +245,17 @@ const services = [
               >
                 {{ paragraph }}
               </p>
+            </div>
+
+            <div class="service-cta" v-if="index === 0 || index === 1">
+              <el-button
+                type="primary"
+                size="large"
+                @click="$router.push(index === 0 ? '/house-removal' : '/business-moving')"
+                class="service-link-button"
+              >
+                {{ index === 0 ? 'Find Out More About House Moving' : 'Find Out More About Office Moving' }}
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -342,6 +436,28 @@ const services = [
   text-align: justify;
 }
 
+.service-cta {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 2px solid #e9ecef;
+}
+
+.service-link-button {
+  background-color: #409eff;
+  border-color: #409eff;
+  font-size: 1rem;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+}
+
+.service-link-button:hover {
+  background-color: #66b1ff;
+  border-color: #66b1ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+}
+
 .cta-section {
   background: linear-gradient(135deg, #545c64 0%, #303133 100%);
   color: #fff;
@@ -438,6 +554,12 @@ const services = [
 
   .cta-section p {
     font-size: 1rem;
+  }
+
+  .service-link-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    width: 100%;
   }
 }
 
