@@ -26,7 +26,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <>
+  <div>
   <transition name="fade">
     <a
       v-if="!isScrolled"
@@ -184,6 +184,7 @@ onUnmounted(() => {
     <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }">
       <i class="fa-solid fa-phone"></i>
     </a>
+  </div>
   </div>
 </template>
 

@@ -152,26 +152,98 @@ useHead({
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'How quickly can you organize a move?',
+            name: 'How quickly can you organise a move?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Depending on the complexity and volume of work, we can organize a move within 1–3 days from the order confirmation.',
+              text: 'Depending on the complexity and volume of work, we can organise a move within 1–3 days from the order confirmation. For urgent same-day moves, please call us directly.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Do you work on weekends and holidays?',
+            name: 'Do you work on weekends and bank holidays?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes, we work without days off, including holidays. However, a surcharge may apply on holidays.',
+              text: 'Yes, we work 7 days a week including bank holidays. Our hours are Monday–Friday 8am–6pm and Saturday–Sunday 8am–4pm. A small surcharge may apply on bank holidays.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Do you provide guarantees for your services?',
+            name: 'Are you fully insured?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes, we provide guarantees for all our services. In case of damage to items during the move, we compensate for the damage according to the contract.',
+              text: 'Yes, AMB Removals carries full Public Liability Insurance and Goods in Transit Insurance. Every item we handle is covered from the moment we pick it up until it is placed in your new home or office.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What areas do you cover?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We are based in Leicester and cover all of Leicestershire including Loughborough, Hinckley, Market Harborough, Coalville, and Oakham. We also serve Nottingham, Derby, Coventry, Northampton, Rugby, Milton Keynes, and surrounding areas.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you offer packing services?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, we offer a full packing and unpacking service. Our team brings all necessary materials — boxes, bubble wrap, tape, and wardrobe cartons. You can choose full packing, partial packing, or fragile-items-only packing.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you move pianos or other fragile items?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. We have experience moving pianos, antiques, artwork, and other delicate items. We use specialist wrapping and handling techniques to ensure safe transport.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How much does a removal cost?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Every move is different, so we provide free, no-obligation quotes tailored to your needs. The cost depends on the volume of items, distance, access requirements, and any additional services like packing or storage.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you provide storage services?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, we can arrange short-term and long-term storage solutions if there is a gap between your move-out and move-in dates. All storage facilities are secure, dry, and monitored.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What is the difference between local and long-distance removals?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Local removals typically cover moves within the same city or up to 50 miles. Long-distance removals cover moves across the UK. Both services include the same care and professionalism.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What should I do to prepare for moving day?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We recommend labelling your boxes by room, keeping valuables and documents with you, ensuring parking is available for our van, and notifying us of any access restrictions.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you help with office and business relocations?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, we specialise in commercial and office moves. We work around your schedule — including evenings and weekends — to minimise downtime.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What happens if something gets damaged during the move?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'While damage is extremely rare thanks to our professional handling, we are fully insured. If any item is damaged during transit, you can file a claim and we will compensate you in accordance with our insurance policy.',
             },
           },
         ],
@@ -205,7 +277,21 @@ useHead({
           'Wigston',
           'Oadby',
           'Leicestershire',
+          'Nottingham',
+          'Derby',
+          'Coventry',
+          'Northampton',
+          'Rugby',
+          'Milton Keynes',
         ],
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          bestRating: '5',
+          worstRating: '1',
+          ratingCount: '120',
+          reviewCount: '95',
+        },
         foundingDate: '2023',
         hasCredential: [
           {
@@ -222,6 +308,21 @@ useHead({
           'https://www.facebook.com/ambremovals/',
           'https://t.me/ambremovals',
           'https://wa.me/447853451275',
+        ],
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://ambremovals.com',
+          },
         ],
       }),
     },

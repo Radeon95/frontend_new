@@ -343,6 +343,18 @@ useHead({
         ],
       }),
     },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Our Services', item: 'https://ambremovals.com/services' },
+          { '@type': 'ListItem', position: 3, name: 'House Removal', item: 'https://ambremovals.com/house-removal' },
+        ],
+      }),
+    },
   ],
 });
 </script>

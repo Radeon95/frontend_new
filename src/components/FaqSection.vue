@@ -3,19 +3,64 @@ import { ref, onMounted } from 'vue';
 
 const faqs = [
   {
-    question: 'How quickly can you organize a move?',
+    question: 'How quickly can you organise a move?',
     answer:
-      'Depending on the complexity and volume of work, we can organize a move within 1–3 days from the order confirmation.',
+      'Depending on the complexity and volume of work, we can organise a move within 1–3 days from the order confirmation. For urgent same-day moves, please call us directly.',
   },
   {
-    question: 'Do you work on weekends and holidays?',
+    question: 'Do you work on weekends and bank holidays?',
     answer:
-      'Yes, we work without days off, including holidays. However, a surcharge may apply on holidays.',
+      'Yes, we work 7 days a week including bank holidays. Our hours are Monday–Friday 8am–6pm and Saturday–Sunday 8am–4pm. A small surcharge may apply on bank holidays.',
   },
   {
-    question: 'Do you provide guarantees for your services?',
+    question: 'Are you fully insured?',
     answer:
-      'Yes, we provide guarantees for all our services. In case of damage to items during the move, we compensate for the damage according to the contract.',
+      'Yes, AMB Removals carries full Public Liability Insurance and Goods in Transit Insurance. Every item we handle is covered from the moment we pick it up until it is placed in your new home or office.',
+  },
+  {
+    question: 'What areas do you cover?',
+    answer:
+      'We are based in Leicester and cover all of Leicestershire including Loughborough, Hinckley, Market Harborough, Coalville, and Oakham. We also serve Nottingham, Derby, Coventry, Northampton, Rugby, Milton Keynes, and surrounding areas.',
+  },
+  {
+    question: 'Do you offer packing services?',
+    answer:
+      'Yes, we offer a full packing and unpacking service. Our team brings all necessary materials — boxes, bubble wrap, tape, and wardrobe cartons. You can choose full packing, partial packing, or fragile-items-only packing.',
+  },
+  {
+    question: 'Can you move pianos or other fragile items?',
+    answer:
+      'Absolutely. We have experience moving pianos, antiques, artwork, and other delicate items. We use specialist wrapping and handling techniques to ensure safe transport. Please mention fragile items when requesting your quote so we can prepare accordingly.',
+  },
+  {
+    question: 'How much does a removal cost?',
+    answer:
+      'Every move is different, so we provide free, no-obligation quotes tailored to your needs. The cost depends on the volume of items, distance, access requirements, and any additional services like packing or storage. Request a free quote through our website or call us for an instant estimate.',
+  },
+  {
+    question: 'Do you provide storage services?',
+    answer:
+      'Yes, we can arrange short-term and long-term storage solutions if there is a gap between your move-out and move-in dates. All storage facilities are secure, dry, and monitored. Contact us for storage rates.',
+  },
+  {
+    question: 'What is the difference between local and long-distance removals?',
+    answer:
+      'Local removals typically cover moves within the same city or up to 50 miles. Long-distance removals cover moves across the UK. Both services include the same care and professionalism — the main difference is pricing and scheduling. We handle both with equal attention to detail.',
+  },
+  {
+    question: 'What should I do to prepare for moving day?',
+    answer:
+      'We recommend labelling your boxes by room, keeping valuables and documents with you, ensuring parking is available for our van, and notifying us of any access restrictions (stairs, narrow hallways, parking permits). Our team will handle the heavy lifting — you just need to be ready to hand over the keys!',
+  },
+  {
+    question: 'Can you help with office and business relocations?',
+    answer:
+      'Yes, we specialise in commercial and office moves. We work around your schedule — including evenings and weekends — to minimise downtime. Our team handles IT equipment, desks, filing cabinets, and all office furniture with care.',
+  },
+  {
+    question: 'What happens if something gets damaged during the move?',
+    answer:
+      'While damage is extremely rare thanks to our professional handling, we are fully insured. If any item is damaged during transit, you can file a claim and we will compensate you in accordance with our insurance policy and terms of service.',
   },
 ];
 

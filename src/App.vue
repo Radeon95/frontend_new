@@ -96,7 +96,7 @@ useHead({
                 alt="AMB Removals Limited"
                 class="logo"
                 src="/src/assets/AmbLogo.png"
-                loading="lazy"
+                loading="eager"
               />
             </a>
           </div>

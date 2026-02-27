@@ -53,7 +53,7 @@ const emit = defineEmits(['open-quote']);
   </div>
 </template>
 
-<style scope>
+<style scoped>
 .section-title {
   text-align: center;
   margin-bottom: 40px;
