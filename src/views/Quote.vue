@@ -4,7 +4,7 @@ import QuoteForm from '../components/QuoteForm.vue';
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Request a Quote | AMB Removals',
+  title: 'Request a Quote',
   meta: [
     {
       name: 'description',
@@ -27,6 +27,27 @@ useHead({
     { property: 'og:type', content: 'website' },
     {
       property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Request a Quote | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Request your moving quote from ambremovals – trusted experts in local and nationwide removals across the UK.',
+    },
+    {
+      name: 'twitter:image',
       content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
   ],

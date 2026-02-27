@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 useHead({
-  title: 'Thank You | AMB Removals',
+  title: 'Thank You',
   meta: [
     {
       name: 'description',
@@ -18,6 +18,19 @@ useHead({
       content: 'AMB Removals, thank you, quote submitted, contact confirmation',
     },
     { name: 'robots', content: 'noindex, follow' },
+    {
+      name: 'twitter:card',
+      content: 'summary',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Thank You | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Thank you for contacting AMB Removals. We have received your request and will contact you shortly.',
+    },
   ],
 });
 

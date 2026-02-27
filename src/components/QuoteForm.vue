@@ -1,36 +1,4 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head';
-
-useHead({
-  title: 'Request a Quote | AMB Removals',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Get your personalized moving quote from AMB Removals. Trusted UK-based company offering local and nationwide removals. Powered by ambremovals team.',
-    },
-    {
-      name: 'keywords',
-      content:
-        'AMB Removals, ambremovals, removal quote, moving company UK, house removals, man with a van, packing services',
-    },
-    { name: 'robots', content: 'index, follow' },
-    { property: 'og:title', content: 'Request a Quote | AMB Removals' },
-    {
-      property: 'og:description',
-      content:
-        'Request your moving quote from ambremovals – trusted experts in local and nationwide removals across the UK.',
-    },
-    { property: 'og:url', content: 'https://ambremovals.com/quote' },
-    { property: 'og:type', content: 'website' },
-    {
-      property: 'og:image',
-      content: 'https://ambremovals.com/AMB_Removals.jpg',
-    },
-  ],
-  link: [{ rel: 'canonical', href: 'https://ambremovals.com/quote' }],
-});
-
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';

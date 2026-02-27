@@ -4,7 +4,7 @@ import stickyButtons from '../components/stickyButtons.vue';
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Our Services | AMB Removals - Professional Moving Services',
+  title: 'Our Services - Professional Moving Solutions',
   meta: [
     {
       name: 'description',
@@ -20,11 +20,83 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      property: 'og:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/services',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [
     {
       rel: 'canonical',
       href: 'https://ambremovals.com/services',
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: 'Moving Services',
+        provider: {
+          '@type': 'MovingCompany',
+          name: 'AMB Removals',
+          url: 'https://ambremovals.com',
+          telephone: '+44 116 456 0653',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '42 The Crescent, Blaby',
+            addressLocality: 'Leicester',
+            addressRegion: 'Leicestershire',
+            postalCode: 'LE8 4FN',
+            addressCountry: 'GB',
+          },
+        },
+        areaServed: {
+          '@type': 'Place',
+          name: 'Leicestershire and the UK',
+        },
+        description:
+          'Professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+      }),
     },
   ],
 });

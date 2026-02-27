@@ -189,7 +189,7 @@ const scrollToForm = () => {
 };
 
 useHead({
-  title: 'Professional Business & Commercial Removals in South Leicestershire | AMB Removals',
+  title: 'Professional Business & Commercial Removals in South Leicestershire',
   meta: [
     {
       name: 'description',
@@ -197,8 +197,13 @@ useHead({
         'Expert office and commercial relocations across Lutterworth, Leicester and South Leicestershire. Fully insured, minimal downtime, transparent pricing.',
     },
     {
+      name: 'keywords',
+      content:
+        'office removals Leicester, commercial removals South Leicestershire, business relocation, Lutterworth office movers, AMB Removals, IT equipment moving',
+    },
+    {
       property: 'og:title',
-      content: 'Professional Business & Commercial Removals in South Leicestershire | AMB Removals',
+      content: 'Professional Business & Commercial Removals | AMB Removals',
     },
     {
       property: 'og:description',
@@ -218,6 +223,26 @@ useHead({
       content: 'https://ambremovals.com/business-moving',
     },
     {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Professional Business & Commercial Removals | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Expert office and commercial relocations across South Leicestershire. Fully insured, minimal downtime.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
       name: 'robots',
       content: 'index, follow',
     },
@@ -232,6 +257,88 @@ useHead({
     {
       src: 'https://elfsightcdn.com/platform.js',
       async: true,
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: 'Business & Commercial Removals',
+        provider: {
+          '@type': 'MovingCompany',
+          name: 'AMB Removals Limited',
+          url: 'https://ambremovals.com',
+          telephone: '+44 116 456 0653',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '42 The Crescent, Blaby',
+            addressLocality: 'Leicester',
+            addressRegion: 'Leicestershire',
+            postalCode: 'LE8 4FN',
+            addressCountry: 'GB',
+          },
+        },
+        areaServed: ['Lutterworth', 'Leicester', 'Blaby', 'South Leicestershire', 'East Midlands'],
+        description: 'Expert office and commercial relocations. Furniture dismantling, IT equipment handling, out-of-hours moves, and full insurance included.',
+        serviceType: 'Commercial Moving',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Can you move our office outside business hours?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we offer evening and weekend moves to help minimise disruption to your team\'s working day.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you provide packing materials for commercial moves?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we supply strong crates, protective wraps and specialist packing materials for office and commercial equipment.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How much notice do you need for an office move?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Earlier bookings are ideal, but we often accommodate short-notice moves for local businesses across South Leicestershire.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you dismantle and rebuild office furniture?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we regularly dismantle desks, shelves and workstations, and reassemble them at your new location.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you handle IT equipment safely?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. We carefully pack and protect computers, monitors and sensitive equipment to ensure everything arrives safely and ready to use.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you relocate equipment from multiple locations?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we can collect items from multiple business sites or storage units and deliver everything to your new address.',
+            },
+          },
+        ],
+      }),
     },
   ],
 });

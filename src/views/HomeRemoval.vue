@@ -192,12 +192,17 @@ const scrollToForm = () => {
 };
 
 useHead({
-  title: 'Trusted Home Removals | AMB Removals',
+  title: 'Trusted Home Removals in South Leicestershire',
   meta: [
     {
       name: 'description',
       content:
         'Local, reliable and fully insured home-moving across Lutterworth, Leicester and South Leicestershire.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'home removals Leicester, house removals South Leicestershire, Lutterworth removals, Blaby movers, AMB Removals, packing services, furniture removals',
     },
     {
       property: 'og:title',
@@ -218,7 +223,27 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://ambremovals.com/landing-page-2',
+      content: 'https://ambremovals.com/house-removal',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Trusted Home Removals | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Local, reliable and fully insured home-moving across Lutterworth, Leicester and South Leicestershire.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
     {
       name: 'robots',
@@ -228,13 +253,95 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://ambremovals.com/landing-page-2',
+      href: 'https://ambremovals.com/house-removal',
     },
   ],
   script: [
     {
       src: 'https://elfsightcdn.com/platform.js',
       async: true,
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: 'Home Removals',
+        provider: {
+          '@type': 'MovingCompany',
+          name: 'AMB Removals Limited',
+          url: 'https://ambremovals.com',
+          telephone: '+44 116 456 0653',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '42 The Crescent, Blaby',
+            addressLocality: 'Leicester',
+            addressRegion: 'Leicestershire',
+            postalCode: 'LE8 4FN',
+            addressCountry: 'GB',
+          },
+        },
+        areaServed: ['Lutterworth', 'Leicester', 'Blaby', 'South Leicestershire'],
+        description: 'Local, reliable and fully insured home-moving across Lutterworth, Leicester and South Leicestershire. Packing, furniture protection, disassembly and reassembly included.',
+        serviceType: 'Residential Moving',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Can you move outside business hours?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we can often accommodate evening or weekend slots to minimise disruption to your day.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you help if I\'m not fully packed?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely. We can step in with packing support or help finish off the last few boxes.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How much notice do you need?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'The earlier the better, but we regularly handle short-notice local moves across South Leicestershire.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you dismantle and rebuild furniture?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we regularly dismantle beds, wardrobes and larger items, then reassemble them in your new home.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you collect items from storage or another address?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes - we can collect items from storage or another property on the same day as your main move.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you remove unwanted items?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We can remove and responsibly dispose of unwanted items as part of your move—just let us know in advance.',
+            },
+          },
+        ],
+      }),
     },
   ],
 });
@@ -387,7 +494,7 @@ useHead({
     <section class="projects-section">
       <div class="projects-shell">
         <div class="projects-header">
-          <p class="projects-eyebrow">Everything your business needs for a smooth, disruption-free relocation.</p>
+          <p class="projects-eyebrow">Everything you need for a smooth, stress-free home move.</p>
           <h2 class="projects-title">Our Removal Services</h2>
           <p class="projects-lead">
             We handle every stage of your home move with care, attention to detail and clear communication - giving you a smoother, more organised experience from start to finish.

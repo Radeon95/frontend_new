@@ -207,7 +207,7 @@ const sendEmail = async (formData: typeof form) => {
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Contact Us | AMB Removals - Get in Touch Today',
+  title: 'Contact Us - Get in Touch Today',
   meta: [
     {
       name: 'description',
@@ -220,7 +220,7 @@ useHead({
         'contact AMB Removals, ambremovals, moving company UK, removal services, office move, packing, relocation experts',
     },
     { name: 'robots', content: 'index, follow' },
-    { property: 'og:title', content: 'Contact AMB Removals | UK Moving Experts' },
+    { property: 'og:title', content: 'Contact Us - Get in Touch Today | AMB Removals' },
     {
       property: 'og:description',
       content:
@@ -230,6 +230,27 @@ useHead({
     { property: 'og:type', content: 'website' },
     {
       property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Contact Us - Get in Touch Today | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Reach out to the ambremovals team for professional relocation and removal assistance across the UK.',
+    },
+    {
+      name: 'twitter:image',
       content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
   ],

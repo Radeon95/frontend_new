@@ -66,6 +66,7 @@ onMounted(() => {
 let scrollY = 0;
 
 watch(showQuoteModal, val => {
+  if (typeof window === 'undefined') return;
   if (val) {
     scrollY = window.scrollY;
     document.body.style.position = 'fixed';
@@ -81,15 +82,19 @@ watch(showQuoteModal, val => {
 });
 
 useHead({
-  title: 'AMB Removals - Fast & Secure Moving Services',
+  title: 'Fast & Secure Moving Services',
   meta: [
     {
       name: 'description',
-      content: 'Professional moving company offering home and office relocation with care.',
+      content: 'Professional moving company offering home and office relocation with care. Fully insured removals across Leicester and the UK.',
+    },
+    {
+      name: 'keywords',
+      content: 'AMB Removals, ambremovals, removals Leicester, house removals, office removals, man with a van, packing services, UK movers',
     },
     {
       property: 'og:title',
-      content: 'AMB Removals - Fast & Secure Moving Services',
+      content: 'AMB Removals | Fast & Secure Moving Services',
     },
     {
       property: 'og:description',
@@ -110,6 +115,22 @@ useHead({
     {
       property: 'og:site_name',
       content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'AMB Removals | Fast & Secure Moving Services',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Professional moving company offering home and office relocation with care.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
     {
       name: 'robots',
@@ -169,9 +190,10 @@ useHead({
           'AMB Removals is a fully insured and accredited moving company based in Leicester, offering professional relocation services across Leicestershire and surrounding areas.',
         address: {
           '@type': 'PostalAddress',
+          streetAddress: '42 The Crescent, Blaby',
           addressLocality: 'Leicester',
           addressRegion: 'Leicestershire',
-          postalCode: 'LE8',
+          postalCode: 'LE8 4FN',
           addressCountry: 'GB',
         },
         telephone: '+44 116 456 0653',

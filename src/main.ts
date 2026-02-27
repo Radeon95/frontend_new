@@ -32,16 +32,11 @@ export const createApp = ViteSSG(
     routes,
     scrollBehavior: () => ({ top: 0 }),
   },
-  ({ app, isClient }) => {
+  ({ app }) => {
     app.use(ElementPlus);
 
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
-    }
-
-    if (isClient) {
-      const fallback = document.getElementById('hero-fallback');
-      if (fallback) fallback.remove();
     }
   },
 );

@@ -71,6 +71,46 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      property: 'og:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/galery',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [{ rel: 'canonical', href: 'https://ambremovals.com/galery' }],
   script: [
