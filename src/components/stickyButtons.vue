@@ -10,13 +10,17 @@ const isScrolled = ref(false);
 const isOpen = ref(false); // For expanding contacts on mobile
 
 function handleScroll() {
-  isScrolled.value = window.scrollY > 50;
+  if (typeof window !== 'undefined') {
+    isScrolled.value = window.scrollY > 50;
+  }
 }
 
 const isMobile = ref(false);
 
 function checkMobile() {
-  isMobile.value = window.innerWidth <= 768;
+  if (typeof window !== 'undefined') {
+    isMobile.value = window.innerWidth <= 768;
+  }
 }
 
 onMounted(() => {
@@ -56,61 +60,26 @@ function trackWhatsappClick() {
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
-  <!-- Telegram -->
-  <!-- <a
-    href="https://t.me/ambremovals"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="floating-button telegram-float sticky no-text"
-  >
-    <i class="fa-brands fa-telegram"></i>
-  </a> -->
-
-  <!-- Instagram -->
-  <!-- <a
-    href="https://www.instagram.com/ambremovals/"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="floating-button instagram-float sticky no-text"
-  >
-    <i class="fa-brands fa-instagram"></i>
-  </a> -->
-
   <!-- Phone -->
-  <a href="tel:01164560653" class="floating-button phone-float sticky no-text">
+  <a href="tel:01164560653" class="floating-button phone-float sticky no-text" aria-label="Call us">
     <i class="fa-solid fa-phone"></i>
   </a>
 
   <!-- MOBILE VERSION (all in 1 button) -->
   <div class="mobile-fab" v-if="isMobile && (isScrolled || $route.path !== '/')">
     <button class="main-fab" @click="isOpen = !isOpen">
-      <img src="@/assets/contact_AMB_Removals.png" alt="Contact" class="fab-icon" />
+      <img src="@/assets/contact_AMB_Removals.png" alt="Contact" class="fab-icon" width="55" height="55" />
     </button>
     <a
       href="https://wa.me/message/CHLGJLYSNVZLE1"
       target="_blank"
+      rel="noopener noreferrer"
       class="fab-child whatsapp"
       :class="{ open: isOpen }"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <!-- <a
-      href="https://t.me/ambremovals"
-      target="_blank"
-      class="fab-child telegram"
-      :class="{ open: isOpen }"
-    >
-      <i class="fa-brands fa-telegram"></i>
-    </a> -->
-    <!-- <a
-      href="https://www.instagram.com/ambremovals"
-      target="_blank"
-      class="fab-child instagram"
-      :class="{ open: isOpen }"
-    >
-      <i class="fa-brands fa-instagram"></i>
-    </a> -->
-    <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }">
+    <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }" aria-label="Call us">
       <i class="fa-solid fa-phone"></i>
     </a>
   </div>
@@ -148,11 +117,6 @@ function trackWhatsappClick() {
 .whatsapp-float.sticky {
   box-shadow: rgba(66, 219, 135, 1) 0px 0px 0px 0.00811595px;
   right: 20px;
-}
-
-.telegram-float.sticky {
-  box-shadow: rgb(38, 133, 221) 0px 0px 0px 0.00811595px;
-  left: 20px;
 }
 
 /* Fade out text smoothly */
@@ -222,13 +186,6 @@ function trackWhatsappClick() {
   font-size: 18px;
   transition: transform 0.5s ease;
 }
-.instagram-float.sticky {
-  box-shadow: rgb(193, 53, 132) 0px 0px 0px 0.00811595px;
-  right: 20px;
-  bottom: calc(12rem + 70px); /* Above WhatsApp */
-  background-color: #c13584;
-}
-
 .phone-float.sticky {
   box-shadow: rgb(50, 50, 50) 0px 0px 0px 0.00811595px;
   left: 20px;
@@ -309,8 +266,6 @@ function trackWhatsappClick() {
 
   /* When open, show children */
   .mobile-fab .fab-child.whatsapp,
-  .mobile-fab .fab-child.telegram,
-  .mobile-fab .fab-child.instagram,
   .mobile-fab .fab-child.phone {
     pointer-events: auto;
   }
@@ -319,14 +274,6 @@ function trackWhatsappClick() {
   .mobile-fab .fab-child.whatsapp {
     top: -70px;
     left: 55px;
-  }
-  .mobile-fab .fab-child.telegram {
-    top: -30px;
-    left: 75px;
-  }
-  .mobile-fab .fab-child.instagram {
-    top: 44px;
-    left: 80px;
   }
   .mobile-fab .fab-child.phone {
     top: 59px;
@@ -342,12 +289,6 @@ function trackWhatsappClick() {
 
   .fab-child.whatsapp {
     background-color: #25d366;
-  }
-  .fab-child.telegram {
-    background-color: #0088cc;
-  }
-  .fab-child.instagram {
-    background-color: #c13584;
   }
   .fab-child.phone {
     background-color: #333;

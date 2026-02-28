@@ -193,7 +193,7 @@ useHead({
     <div class="section achievements-section">
       <h2 class="section-title">Our Achievements</h2>
       <el-row :gutter="20">
-        <el-col :xs="24" :sm="12" :md="8" v-for="(_, index) in 4" :key="index">
+        <el-col :xs="24" :sm="12" :md="8" v-for="(_, index) in 3" :key="index">
           <div class="stat-card">
             <h3 v-if="index === 0">100+</h3>
             <h3 v-else-if="index === 1">98%</h3>
@@ -214,11 +214,12 @@ useHead({
       <h2 class="section-title">Our Partners</h2>
       <div class="partners-logos">
         <el-image
-          v-for="i in 4"
+          v-for="(logo, i) in partnerLogos"
           :key="i"
           style="width: 120px; height: 80px"
-          :src="partnerLogos[i - 1]"
+          :src="logo"
           fit="contain"
+          :alt="`AMB Removals partner ${i + 1}`"
         ></el-image>
       </div>
     </div>
@@ -231,10 +232,6 @@ useHead({
         Contact Us
       </el-button>
     </div>
-  </div>
-  <div style="position: absolute; left: -9999px; top: -9999px" aria-hidden="true">
-    AMB Removals is also known as ambremovals by our clients across the UK. Trusted, efficient, and
-    family-run moving company.
   </div>
 </template>
 
@@ -311,25 +308,6 @@ useHead({
   font-size: 40px;
   color: #409eff;
   margin-bottom: 15px;
-}
-
-.team-section {
-  background-color: white;
-}
-
-.team-card {
-  height: 100%;
-  text-align: center;
-  padding: 20px;
-}
-
-.team-card .el-avatar {
-  margin-bottom: 15px;
-}
-
-.team-card .position {
-  color: #909399;
-  margin-bottom: 10px;
 }
 
 .achievements-section {

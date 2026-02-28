@@ -20,7 +20,7 @@ const faqs = [
   {
     question: 'What areas do you cover?',
     answer:
-      'We are based in Leicester and cover all of Leicestershire including Loughborough, Hinckley, Market Harborough, Coalville, and Oakham. We also serve Nottingham, Derby, Coventry, Northampton, Rugby, Milton Keynes, and surrounding areas.',
+      'We cover the entire Midlands region including Leicester, Nottingham, Derby, Coventry, Northampton, Loughborough, Market Harborough, Hinckley, Rugby, Milton Keynes, and surrounding areas. No matter where you are moving from or to, we can help.',
   },
   {
     question: 'Do you offer packing services?',

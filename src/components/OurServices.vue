@@ -4,8 +4,10 @@ import { Van, OfficeBuilding, Box } from '@element-plus/icons-vue';
 
 const router = useRouter();
 
-const goToServices = () => {
-  router.push('/services');
+const serviceAnchors = ['house-moving', 'office-moving', 'packing-services'];
+
+const goToService = (index: number) => {
+  router.push(`/services#${serviceAnchors[index]}`);
 };
 </script>
 
@@ -26,25 +28,24 @@ const goToServices = () => {
 
           <div class="service-content">
             <p v-if="index === 0">
-              🏠 House Removals in Leicestershire – Professional Home Moving Services Moving house
-              in Leicester or the surrounding areas? Whether you're upgrading to a larger home,
-              relocating to another city, or downsizing, AMB Removals is here to make your house
-              move smooth, stress-free, and efficient.
+              🏠 Professional House Removals Across the Midlands. Whether you're upgrading,
+              downsizing, or relocating to a new city, AMB Removals makes your house move smooth,
+              stress-free, and efficient. We cover Leicester, Nottingham, Derby, Coventry,
+              Northampton and surrounding areas.
             </p>
             <p v-else-if="index === 1">
-              🏢 Office Removals in Leicester – Business Relocation Made Simple Relocating your
-              office in Leicester or nearby areas? At AMB Removals, we understand that time is money
-              — and we make sure your office move is fast, efficient, and disruption-free.
+              🏢 Office Relocations — Minimal Downtime, Maximum Efficiency. Moving your business
+              across the East Midlands or beyond? AMB Removals handles office moves of all sizes
+              with speed and care, so your team stays productive throughout.
             </p>
             <p v-else-if="index === 2">
-              📦 Packing Services – Professional Packing for Home & Office Moves Don't want the
-              hassle of packing? Our professional packing service ensures your items are safely
-              wrapped, boxed, and ready for transport — whether you're moving house or relocating
-              your office.
+              📦 Professional Packing for Home &amp; Office Moves. Don't want the hassle of
+              packing? Our trained team safely wraps, boxes, and labels everything — from fragile
+              items to full office equipment — so your belongings arrive in perfect condition.
             </p>
           </div>
 
-          <el-button type="primary" class="read-more-btn" @click="goToServices">
+          <el-button type="primary" class="read-more-btn" @click="goToService(index)">
             Read More
           </el-button>
         </el-card>

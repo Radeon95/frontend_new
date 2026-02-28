@@ -212,7 +212,7 @@ useHead({
     {
       name: 'description',
       content:
-        'Contact AMB Removals for expert moving services in the UK. Our ambremovals team is here to help with local and nationwide removals.',
+        'Contact AMB Removals for expert moving services across Leicester, Nottingham, Derby, Coventry and the wider Midlands. Get a free quote or speak to our friendly team today.',
     },
     {
       name: 'keywords',
@@ -333,6 +333,7 @@ useHead({
                     href="https://www.facebook.com/ambremovalslimited"
                     title="Facebook"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                   >
                     <i class="fab fa-facebook-f"></i></a
@@ -341,6 +342,7 @@ useHead({
                   <a
                     href="https://www.instagram.com/ambremovals/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     title="Instagram"
                     class="social-icons"
                   >
@@ -352,14 +354,16 @@ useHead({
                     href="https://t.me/ambremovals"
                     title="Telegram"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                     ><i class="fab fa-telegram-plane"></i></a
                 ></el-button>
                 <el-button circle
                   ><a
                     href="https://wa.me/message/CHLGJLYSNVZLE1"
-                    title="WatsApp"
+                    title="WhatsApp"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                   >
                     <i class="fab fa-whatsapp"></i
@@ -483,9 +487,6 @@ useHead({
       </el-collapse>
     </div>
   </div>
-  <div style="position: absolute; left: -9999px; top: -9999px" aria-hidden="true">
-    AMB Removals - ambremovals contact and support information
-  </div>
 </template>
 
 <style scoped>
@@ -602,18 +603,6 @@ useHead({
   color: #606266;
 }
 
-.map-section {
-  padding: 0 0 60px 0;
-}
-
-.map-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
 .faq-section {
   background-color: #f5f7fa;
 }
@@ -646,13 +635,13 @@ useHead({
   }
 }
 @media (min-width: 768px) {
-  .faq-section ::v-deep(.el-collapse-item__header) {
+  .faq-section :deep(.el-collapse-item__header) {
     font-size: 22px; /* Adjust the value as needed */
     font-weight: 600;
     margin-bottom: 1rem;
   }
 
-  .faq-section ::v-deep(.el-collapse-item__content) {
+  .faq-section :deep(.el-collapse-item__content) {
     font-size: 19px; /* Optional: for answer text */
   }
 }

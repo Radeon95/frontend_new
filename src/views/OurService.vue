@@ -1,7 +1,29 @@
 <script setup lang="ts">
+import { onMounted, nextTick } from 'vue';
+import { useRoute } from 'vue-router';
 import { Van, OfficeBuilding, Box } from '@element-plus/icons-vue';
 import stickyButtons from '../components/stickyButtons.vue';
 import { useHead } from '@vueuse/head';
+
+const route = useRoute();
+
+function scrollToHash() {
+  if (typeof window === 'undefined') return;
+  const hash = route.hash;
+  if (!hash) return;
+  const el = document.querySelector(hash);
+  if (!el) return;
+  const navbar = document.querySelector('.header-content') as HTMLElement | null;
+  const offset = navbar ? navbar.offsetHeight + 20 : 120;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+onMounted(() => {
+  nextTick(() => {
+    setTimeout(scrollToHash, 100);
+  });
+});
 
 useHead({
   title: 'Our Services - Professional Moving Solutions',
@@ -9,12 +31,12 @@ useHead({
     {
       name: 'description',
       content:
-        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
     },
     {
       name: 'keywords',
       content:
-        'AMB Removals, house removals, office moving, packing services, Leicester removals, professional movers, relocation services',
+        'AMB Removals, house removals, office moving, packing services, man with a van, removals Midlands, removals Leicester, removals Nottingham, removals Derby, removals Coventry, professional movers, relocation services',
     },
     {
       name: 'robots',
@@ -27,7 +49,7 @@ useHead({
     {
       property: 'og:description',
       content:
-        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
     },
     {
       property: 'og:url',
@@ -56,7 +78,7 @@ useHead({
     {
       name: 'twitter:description',
       content:
-        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
     },
     {
       name: 'twitter:image',
@@ -92,10 +114,10 @@ useHead({
         },
         areaServed: {
           '@type': 'Place',
-          name: 'Leicestershire and the UK',
+          name: 'The Midlands and the UK',
         },
         description:
-          'Professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+          'Professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
       }),
     },
     {
@@ -114,13 +136,14 @@ useHead({
 
 const services = [
   {
+    id: 'house-moving',
     icon: Van,
     title: 'House Moving Services',
     content: {
       intro: [
-        '🏠 House Removals in Leicestershire – Professional Home Moving Services',
-        "Moving house in Leicester or the surrounding areas? Whether you're upgrading to a larger home, relocating to another city, or downsizing, AMB Removals is here to make your house move smooth, stress-free, and efficient.",
-        "As a trusted Leicester removals company, we specialise in residential moving services tailored to your exact needs. With years of experience, a reliable team, and great customer feedback, we take care of everything — so you don't have to.",
+        '🏠 Professional House Removals Across the Midlands',
+        "Moving house? Whether you're upgrading to a larger home, relocating to another city, or downsizing, AMB Removals is here to make your house move smooth, stress-free, and efficient. We cover Leicester, Nottingham, Derby, Coventry, Northampton and surrounding areas.",
+        "As a trusted removals company, we specialise in residential moving services tailored to your exact needs. With years of experience, a reliable team, and great customer feedback, we take care of everything — so you don't have to.",
       ],
       featuresTitle: "✅ What's Included in Our House Moving Service",
       featuresSubtitle: 'We provide everything you need for a successful home move:',
@@ -132,20 +155,21 @@ const services = [
         '💬 Clear, upfront pricing with no hidden charges',
       ],
       closing: [
-        "Whether you're moving across Leicester or to another part of the UK, your belongings are safe in our hands.",
-        "📞 Ready to Move? Let AMB Removals take the stress out of moving day. We're proud to be one of the top-rated house removal companies in Leicester, known for care, speed, and customer satisfaction.",
+        "Whether you're moving locally or to another part of the UK, your belongings are safe in our hands.",
+        "📞 Ready to Move? Let AMB Removals take the stress out of moving day. We're proud to be one of the top-rated house removal companies in the Midlands, known for care, speed, and customer satisfaction.",
         '👉 Get your FREE moving quote today – fast, friendly, and no obligation.',
       ],
     },
   },
   {
+    id: 'office-moving',
     icon: OfficeBuilding,
     title: 'Office Moving',
     content: {
       intro: [
-        '🏢 Office Removals in Leicester – Business Relocation Made Simple',
-        'Relocating your office in Leicester or nearby areas? At AMB Removals, we understand that time is money — and we make sure your office move is fast, efficient, and disruption-free.',
-        "Whether you're a small business upgrading to a larger space or a company moving departments across the city, our professional office movers handle everything with minimal downtime.",
+        '🏢 Office Removals – Business Relocation Made Simple',
+        'Relocating your office? At AMB Removals, we understand that time is money — and we make sure your office move is fast, efficient, and disruption-free across the Midlands and beyond.',
+        "Whether you're a small business upgrading to a larger space or a company moving departments, our professional office movers handle everything with minimal downtime.",
       ],
       featuresTitle: '✅ Our Office Moving Services Include:',
       features: [
@@ -156,12 +180,13 @@ const services = [
         '🧹 Optional post-move cleanup and waste disposal',
       ],
       closing: [
-        'We serve businesses across Leicester, Loughborough, Hinckley, Wigston, and the wider East Midlands.',
+        'We serve businesses across the Midlands including Leicester, Nottingham, Derby, Coventry, Northampton, Loughborough, and surrounding areas.',
         '📞 Book Your Office Move Today Keep your team focused — and let us handle the logistics. Contact AMB Removals for a free quote and expert advice on your upcoming business relocation.',
       ],
     },
   },
   {
+    id: 'packing-services',
     icon: Box,
     title: 'Packing Services',
     content: {
@@ -185,12 +210,13 @@ const services = [
     },
   },
   {
+    id: 'man-with-van',
     icon: Van,
     title: 'Man with a Van',
     content: {
       intro: [
-        '🚐 Man with a Van in Leicester – Affordable, Flexible Moving',
-        "Need something moved quickly and affordably? Our man with a van service is perfect for single items, student moves, small flat relocations, and marketplace collections across Leicester and the East Midlands.",
+        '🚐 Man with a Van – Affordable, Flexible Moving',
+        "Need something moved quickly and affordably? Our man with a van service is perfect for single items, student moves, small flat relocations, and marketplace collections across the Midlands.",
       ],
       featuresTitle: "✅ What's Included in Our Man with a Van Service:",
       features: [
@@ -224,7 +250,7 @@ const services = [
 
     <!-- Services Section -->
     <div class="services-container">
-      <div class="service-item" v-for="(service, index) in services" :key="index">
+      <div class="service-item" v-for="(service, index) in services" :key="index" :id="service.id">
         <el-card class="service-card">
           <div class="service-header">
             <el-icon class="service-icon">

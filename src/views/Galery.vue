@@ -60,7 +60,7 @@ useHead({
     {
       name: 'description',
       content:
-        'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+        'Explore our photo gallery showcasing professional removals, packing and moving services by AMB Removals across the Midlands and the UK. See our team in action.',
     },
     {
       name: 'keywords',
@@ -81,7 +81,7 @@ useHead({
     },
     {
       property: 'og:url',
-      content: 'https://ambremovals.com/galery',
+      content: 'https://ambremovals.com/gallery',
     },
     {
       property: 'og:type',
@@ -112,7 +112,7 @@ useHead({
       content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
   ],
-  link: [{ rel: 'canonical', href: 'https://ambremovals.com/galery' }],
+  link: [{ rel: 'canonical', href: 'https://ambremovals.com/gallery' }],
   script: [
     {
       type: 'application/ld+json',
@@ -120,7 +120,7 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',
         name: 'ambremovals Gallery',
-        url: 'https://ambremovals.com/galery',
+        url: 'https://ambremovals.com/gallery',
         description: 'Gallery of ambremovals moving and packing services across the UK.',
       }),
     },
@@ -131,7 +131,7 @@ useHead({
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
-          { '@type': 'ListItem', position: 2, name: 'Gallery', item: 'https://ambremovals.com/galery' },
+          { '@type': 'ListItem', position: 2, name: 'Gallery', item: 'https://ambremovals.com/gallery' },
         ],
       }),
     },

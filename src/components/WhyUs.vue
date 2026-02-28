@@ -9,7 +9,7 @@ const emit = defineEmits(['open-quote']);
       <p class="headline" data-aos="fade-up">
         ✅
         <strong>
-          Fully Insured and Accredited Removals Company in Leicester and Surrounding Areas
+          Fully Insured &amp; Accredited Removals Company Serving the Midlands
         </strong>
       </p>
       <p data-aos="fade-up">
@@ -17,8 +17,8 @@ const emit = defineEmits(['open-quote']);
         especially when you’re trusting someone with your home and belongings...
       </p>
 
-      <h3 data-aos="fade-up">🛡️ Trusted Removals in Leicester You Can Rely On</h3>
-      <p>Whether you're moving across town or relocating to a nearby village...</p>
+      <h3 data-aos="fade-up">🛡️ Trusted Removals You Can Rely On</h3>
+      <p>Whether you're moving across town or relocating to another city, your belongings are in safe hands...</p>
 
       <ul data-aos="fade-up">
         <li>🛠️ Public Liability Insurance</li>
@@ -42,8 +42,8 @@ const emit = defineEmits(['open-quote']);
 
       <h3>📞 Ready to Move?</h3>
       <p>
-        Looking for a trusted removals company in Leicester, Loughborough, Hinckley etc?<br />
-        📲 Contact AMB Removals today for a free quote and move with peace of mind.
+        Looking for a trusted removals company in your area?<br />
+        📲 Contact AMB Removals today for a free quote and move with peace of mind. We serve Leicester, Nottingham, Derby, Coventry, Northampton and beyond.
       </p>
     </div>
 

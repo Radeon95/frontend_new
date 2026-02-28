@@ -3,7 +3,6 @@ import { ref, onMounted, watch } from 'vue';
 import { useHead } from '@vueuse/head';
 
 import QuoteForm from '@/components/QuoteForm.vue';
-import { ElDialog } from 'element-plus';
 import OurServices from '../components/OurServices.vue';
 import WhyUs from '../components/WhyUs.vue';
 import GallerySection from '../components/GallerySection.vue';
@@ -86,11 +85,11 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Professional moving company offering home and office relocation with care. Fully insured removals across Leicester and the UK.',
+      content: 'Professional moving company offering home and office relocation with care. Fully insured removals across Leicester, Nottingham, Derby, Coventry and the wider Midlands.',
     },
     {
       name: 'keywords',
-      content: 'AMB Removals, ambremovals, removals Leicester, house removals, office removals, man with a van, packing services, UK movers',
+      content: 'AMB Removals, ambremovals, house removals, office removals, man with a van, packing services, removals Midlands, removals Leicester, removals Nottingham, removals Derby, removals Coventry, UK movers',
     },
     {
       property: 'og:title',
@@ -179,7 +178,7 @@ useHead({
             name: 'What areas do you cover?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'We are based in Leicester and cover all of Leicestershire including Loughborough, Hinckley, Market Harborough, Coalville, and Oakham. We also serve Nottingham, Derby, Coventry, Northampton, Rugby, Milton Keynes, and surrounding areas.',
+              text: 'We cover the entire Midlands region including Leicester, Nottingham, Derby, Coventry, Northampton, Loughborough, Market Harborough, Hinckley, Rugby, Milton Keynes, and surrounding areas. No matter where you are moving from or to, we can help.',
             },
           },
           {
@@ -381,7 +380,7 @@ useHead({
 
     <!-- Как мы работаем -->
     <div class="section how-we-work-section">
-      <h2 class="section-title">How it work's</h2>
+      <h2 class="section-title">How It Works</h2>
       <el-steps :active="4" finish-status="success" simple class="how-it-works-steps">
         <el-step title="Request" description="Place a request"></el-step>
         <el-step title="Evaluation" description="Our professionals will evaluate"></el-step>

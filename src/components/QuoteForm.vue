@@ -222,9 +222,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <div style="position: absolute; left: -9999px; top: -9999px" aria-hidden="true">
-    AMB Removals - ambremovals professional moving quote
-  </div>
   <div class="quote-container">
     <el-form
       class="quote-form"
@@ -413,11 +410,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 label {
   font-weight: 600;
   color: #333;
-  font-size: 40px;
-}
-
-el-input {
-  border-radius: 2px;
 }
 :deep(.el-input__wrapper),
 :deep(.el-textarea__inner),
@@ -563,12 +555,6 @@ input[type='checkbox'] {
   height: 20px;
   accent-color: #10abff; /* Optional: changes the checkbox color */
   cursor: pointer;
-}
-
-.quote-container {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
 }
 
 :deep(.el-input__wrapper),

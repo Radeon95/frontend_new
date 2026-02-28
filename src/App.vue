@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 import { useHead } from '@vueuse/head';
+import ambLogo from '@/assets/AmbLogo.png';
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -9,6 +10,7 @@ const isMobileMenuOpen = ref(false);
 const menuToggleRef = ref<HTMLElement | null>(null);
 
 const handleOutsideClick = (event: MouseEvent) => {
+  if (typeof document === 'undefined') return;
   const menu = document.querySelector('.mobile-menu');
   const toggleBtn = menuToggleRef.value;
   if (
@@ -25,11 +27,15 @@ const toggleMenu = () => {
 };
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 10;
+  if (typeof window !== 'undefined') {
+    isScrolled.value = window.scrollY > 10;
+  }
 };
 
 onMounted(() => {
@@ -95,8 +101,10 @@ useHead({
               <img
                 alt="AMB Removals Limited"
                 class="logo"
-                src="/src/assets/AmbLogo.png"
+                :src="ambLogo"
                 loading="eager"
+                width="115"
+                height="100"
               />
             </a>
           </div>
@@ -119,7 +127,7 @@ useHead({
             <nav class="desktop-menu" aria-label="Main navigation">
               <router-link to="/" :class="['nav-link', { active: $route.path === '/' }]">Home</router-link>
               <router-link to="/services" :class="['nav-link', { active: $route.path === '/services' }]">Our Services</router-link>
-              <router-link to="/galery" :class="['nav-link', { active: $route.path === '/galery' }]">Gallery</router-link>
+              <router-link to="/gallery" :class="['nav-link', { active: $route.path === '/gallery' }]">Gallery</router-link>
               <router-link to="/about" :class="['nav-link', { active: $route.path === '/about' }]">About Us</router-link>
               <router-link to="/contact" :class="['nav-link', { active: $route.path === '/contact' }]">Contact</router-link>
               <router-link to="/quote" :class="['nav-link', { active: $route.path === '/quote' }]">Request Quote</router-link>
@@ -129,20 +137,20 @@ useHead({
       </el-header>
       <transition name="slide">
         <div v-if="isMobileMenuOpen" class="mobile-menu-overlay">
-          <div class="mobile-menu">
+          <nav class="mobile-menu" aria-label="Mobile navigation">
             <router-link to="/" @click="toggleMenu">Home</router-link>
             <router-link to="/services" @click="toggleMenu">Our Services</router-link>
-            <router-link to="/galery" @click="toggleMenu">Gallery</router-link>
+            <router-link to="/gallery" @click="toggleMenu">Gallery</router-link>
             <router-link to="/about" @click="toggleMenu">About Us</router-link>
             <router-link to="/contact" @click="toggleMenu">Contact</router-link>
             <router-link to="/quote" @click="toggleMenu">Request Quote</router-link>
-          </div>
+          </nav>
         </div>
       </transition>
       <el-main>
         <!-- Page optimized for ambremovals SEO keyword -->
         <router-view></router-view>
-        <button @click="scrollToTop" class="scroll-to-top">
+        <button @click="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
           <i class="fas fa-arrow-up"></i>
         </button>
       </el-main>
@@ -152,7 +160,7 @@ useHead({
           <div class="footer-info">
             <h3>AMB Removals Limited</h3>
             <p>Professional Moving Service</p>
-            <p>2025 AMB Removals Limited. All rights reserved.</p>
+            <p>2026 AMB Removals Limited. All rights reserved.</p>
             <img
               alt="AMB Removals Assured"
               class="assured"
@@ -201,30 +209,30 @@ useHead({
               <li><router-link to="/services">Our Services</router-link></li>
               <li><router-link to="/about">About Us</router-link></li>
               <li><router-link to="/contact">Contact</router-link></li>
-              <li><router-link to="/galery">Gallery</router-link></li>
+              <li><router-link to="/gallery">Gallery</router-link></li>
               <li><router-link to="/quote">Get a Quote</router-link></li>
             </ul>
           </div>
           <div class="areas">
             <h4>Areas covered</h4>
             <ul>
+              <li><router-link to="/removals-leicester">Leicester</router-link></li>
+              <li><router-link to="/removals-nottingham">Nottingham</router-link></li>
+              <li><router-link to="/removals-derby">Derby</router-link></li>
+              <li><router-link to="/removals-coventry">Coventry</router-link></li>
+              <li><router-link to="/removals-northampton">Northampton</router-link></li>
+              <li><router-link to="/removals-loughborough">Loughborough</router-link></li>
+              <li><router-link to="/removals-market-harborough">Market Harborough</router-link></li>
+              <li><router-link to="/removals-lutterworth">Lutterworth</router-link></li>
+              <li><router-link to="/removals-hinckley">Hinckley</router-link></li>
+              <li><router-link to="/removals-rugby">Rugby</router-link></li>
               <li>Milton Keynes</li>
               <li>Tamworth</li>
               <li>Ashby-de-la-Zouch</li>
               <li>Royal Leamington Spa</li>
-              <li>Market Harborough</li>
-              <li>Lutterworth</li>
-              <li>Loughborough</li>
-              <li>Hinckley</li>
               <li>Oakham</li>
               <li>Coalville</li>
-              <li>Derby</li>
-              <li>Leicestershire</li>
               <li>Castle Donington</li>
-              <li>Nottingham</li>
-              <li>Coventry</li>
-              <li>Northampton</li>
-              <li>Rugby</li>
             </ul>
           </div>
         </div>
@@ -234,7 +242,7 @@ useHead({
 </template>
 <style scoped>
 .app-container {
-  padding: auto;
+  padding: 0;
 }
 
 @media (max-width: 890px) {
@@ -276,6 +284,12 @@ useHead({
   min-height: 100px;
   position: relative;
   z-index: 1;
+}
+.header-inner .logo img.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 @media (max-width: 890px) {
@@ -428,6 +442,13 @@ useHead({
 .areas li {
   margin-bottom: 8px;
   color: bisque;
+}
+.areas a {
+  color: bisque;
+  text-decoration: none;
+}
+.areas a:hover {
+  text-decoration: underline;
 }
 
 .social-links a {
