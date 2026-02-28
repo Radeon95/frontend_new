@@ -1,49 +1,84 @@
-import { createApp } from 'vue';
+import { ViteSSG } from 'vite-ssg';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  Phone,
+  Message,
+  Van,
+  OfficeBuilding,
+  Box,
+  Star,
+  UserFilled,
+  Opportunity,
+  Location,
+  Clock,
+} from '@element-plus/icons-vue';
 import './style.css';
-import { createHead } from '@vueuse/head'; //SEO
 import App from './App.vue';
-import Home from './views/Home.vue';
-import About from './views/About.vue';
-import Contact from './views/Contact.vue';
-import Galery from './views/Galery.vue';
-import Quote from './views/Quote.vue';
-import OurService from './views/OurService.vue';
 
-// Определение маршрутов
+const Home = () => import('./views/Home.vue');
+const About = () => import('./views/About.vue');
+const Contact = () => import('./views/Contact.vue');
+const Gallery = () => import('./views/Galery.vue');
+const Quote = () => import('./views/Quote.vue');
+const OurService = () => import('./views/OurService.vue');
+const BusinessMoving = () => import('./views/BusinessMoving.vue');
+const HouseRemoval = () => import('./views/HomeRemoval.vue');
+const ThankYou = () => import('./views/ThankYou.vue');
+const PackingServices = () => import('./views/PackingServices.vue');
+const ManWithVan = () => import('./views/ManWithVan.vue');
+const LocationPage = () => import('./views/LocationPage.vue');
+
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
   { path: '/contact', component: Contact },
-  { path: '/galery', component: Galery },
+  { path: '/gallery', component: Gallery },
+  { path: '/galery', redirect: '/gallery' },
   { path: '/quote', name: 'Quote', component: Quote },
   { path: '/services', component: OurService },
+  { path: '/business-moving', component: BusinessMoving },
+  { path: '/house-removal', component: HouseRemoval },
+  { path: '/packing-services', component: PackingServices },
+  { path: '/man-with-van', component: ManWithVan },
+  { path: '/thank-you', name: 'ThankYou', component: ThankYou },
+  { path: '/removals-leicester', component: LocationPage, props: { city: 'leicester' } },
+  { path: '/removals-nottingham', component: LocationPage, props: { city: 'nottingham' } },
+  { path: '/removals-derby', component: LocationPage, props: { city: 'derby' } },
+  { path: '/removals-coventry', component: LocationPage, props: { city: 'coventry' } },
+  { path: '/removals-northampton', component: LocationPage, props: { city: 'northampton' } },
+  { path: '/removals-loughborough', component: LocationPage, props: { city: 'loughborough' } },
+  { path: '/removals-market-harborough', component: LocationPage, props: { city: 'market-harborough' } },
+  { path: '/removals-lutterworth', component: LocationPage, props: { city: 'lutterworth' } },
+  { path: '/removals-hinckley', component: LocationPage, props: { city: 'hinckley' } },
+  { path: '/removals-rugby', component: LocationPage, props: { city: 'rugby' } },
+  { path: '/:pathMatch(.*)*', redirect: '/' },
 ];
 
-// Создание маршрутизатора
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
-router.options.scrollBehavior = () => ({ top: 0 });
+export const createApp = ViteSSG(
+  App,
+  {
+    routes,
+    scrollBehavior: (to) => {
+      if (to.hash) {
+        return undefined;
+      }
+      return { top: 0 };
+    },
+  },
+  ({ app }) => {
+    app.use(ElementPlus);
 
-const app = createApp(App);
-const head = createHead(); // SEO
-
-// Регистрация всех иконок Element Plus
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component);
-}
-
-// Использование плагинов
-app.use(ElementPlus);
-app.use(router);
-app.use(head); // SEO
-
-app.mount('#app');
-
-const fallback = document.getElementById('hero-fallback');
-if (fallback) fallback.remove();
+    // Register only the icons that are actually used
+    app.component('Phone', Phone);
+    app.component('Message', Message);
+    app.component('Van', Van);
+    app.component('OfficeBuilding', OfficeBuilding);
+    app.component('Box', Box);
+    app.component('Star', Star);
+    app.component('UserFilled', UserFilled);
+    app.component('Opportunity', Opportunity);
+    app.component('Location', Location);
+    app.component('Clock', Clock);
+  },
+);

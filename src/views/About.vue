@@ -14,7 +14,7 @@ const partnerLogos = ref([
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'About Us | AMB Removals - Trusted UK Movers',
+  title: 'About Us - Trusted UK Movers',
   meta: [
     {
       name: 'description',
@@ -32,7 +32,7 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'About Us | AMB Removals - Trusted UK Movers',
+      content: 'About Us - Trusted UK Movers | AMB Removals',
     },
     {
       property: 'og:description',
@@ -41,7 +41,7 @@ useHead({
     },
     {
       property: 'og:image',
-      content: 'https://ambremovals.com/images/AMB_Removals.jpg',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
     {
       property: 'og:url',
@@ -51,11 +51,45 @@ useHead({
       property: 'og:type',
       content: 'website',
     },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'About Us - Trusted UK Movers | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Get to know AMB Removals and the ambremovals team. Learn what makes us one of the most trusted moving companies in the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [
     {
       rel: 'canonical',
       href: 'https://ambremovals.com/about',
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'About Us', item: 'https://ambremovals.com/about' },
+        ],
+      }),
     },
   ],
 });
@@ -159,17 +193,15 @@ useHead({
     <div class="section achievements-section">
       <h2 class="section-title">Our Achievements</h2>
       <el-row :gutter="20">
-        <el-col :xs="24" :sm="12" :md="8" v-for="(_, index) in 4" :key="index">
+        <el-col :xs="24" :sm="12" :md="8" v-for="(_, index) in 3" :key="index">
           <div class="stat-card">
             <h3 v-if="index === 0">100+</h3>
             <h3 v-else-if="index === 1">98%</h3>
-            <h3 v-else-if="index === 2">5+</h3>
-            <!-- <h3 v-else>24/7</h3> -->
+            <h3 v-else>5+</h3>
 
             <p v-if="index === 0">Successful Moves</p>
             <p v-else-if="index === 1">Satisfied Clients</p>
-            <p v-else-if="index === 2">Years in Business</p>
-            <!--  <p v-else>Customer Support</p> -->
+            <p v-else>Years in Business</p>
           </div>
         </el-col>
       </el-row>
@@ -180,11 +212,12 @@ useHead({
       <h2 class="section-title">Our Partners</h2>
       <div class="partners-logos">
         <el-image
-          v-for="i in 4"
+          v-for="(logo, i) in partnerLogos"
           :key="i"
           style="width: 120px; height: 80px"
-          :src="partnerLogos[i - 1]"
+          :src="logo"
           fit="contain"
+          :alt="`AMB Removals partner ${i + 1}`"
         ></el-image>
       </div>
     </div>
@@ -197,10 +230,6 @@ useHead({
         Contact Us
       </el-button>
     </div>
-  </div>
-  <div style="position: absolute; left: -9999px; top: -9999px" aria-hidden="true">
-    AMB Removals is also known as ambremovals by our clients across the UK. Trusted, efficient, and
-    family-run moving company.
   </div>
 </template>
 
@@ -277,25 +306,6 @@ useHead({
   font-size: 40px;
   color: #409eff;
   margin-bottom: 15px;
-}
-
-.team-section {
-  background-color: white;
-}
-
-.team-card {
-  height: 100%;
-  text-align: center;
-  padding: 20px;
-}
-
-.team-card .el-avatar {
-  margin-bottom: 15px;
-}
-
-.team-card .position {
-  color: #909399;
-  margin-bottom: 10px;
 }
 
 .achievements-section {

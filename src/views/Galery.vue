@@ -2,8 +2,7 @@
   <div class="gallery">
     <stickyButtons />
     <div class="gallery-section">
-      <h2 class="section-title">Gallery</h2>
-      <!-- Page optimized for ambremovals SEO keyword -->
+      <h1 class="section-title">Our Removals Gallery</h1>
       <div class="gallery-grid">
         <img
           v-for="(img, index) in galleryImages"
@@ -55,12 +54,12 @@ function getAlt(path: string) {
   return `ambremovals / AMB Removals – ${name}`;
 }
 useHead({
-  title: 'Gallery',
+  title: 'Our Removals Gallery',
   meta: [
     {
       name: 'description',
       content:
-        'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+        'Explore our photo gallery showcasing professional removals, packing and moving services by AMB Removals across the Midlands and the UK. See our team in action.',
     },
     {
       name: 'keywords',
@@ -71,8 +70,48 @@ useHead({
       name: 'robots',
       content: 'index, follow',
     },
+    {
+      property: 'og:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/gallery',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Gallery | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Explore the ambremovals photo gallery showcasing our moving services across the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
-  link: [{ rel: 'canonical', href: 'https://ambremovals.com/galery' }],
+  link: [{ rel: 'canonical', href: 'https://ambremovals.com/gallery' }],
   script: [
     {
       type: 'application/ld+json',
@@ -80,8 +119,19 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',
         name: 'ambremovals Gallery',
-        url: 'https://ambremovals.com/galery',
+        url: 'https://ambremovals.com/gallery',
         description: 'Gallery of ambremovals moving and packing services across the UK.',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Gallery', item: 'https://ambremovals.com/gallery' },
+        ],
       }),
     },
   ],

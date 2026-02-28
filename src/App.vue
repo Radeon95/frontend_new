@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 import { useHead } from '@vueuse/head';
+import ambLogo from '@/assets/AmbLogo.png';
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
@@ -9,6 +10,7 @@ const isMobileMenuOpen = ref(false);
 const menuToggleRef = ref<HTMLElement | null>(null);
 
 const handleOutsideClick = (event: MouseEvent) => {
+  if (typeof document === 'undefined') return;
   const menu = document.querySelector('.mobile-menu');
   const toggleBtn = menuToggleRef.value;
   if (
@@ -25,11 +27,15 @@ const toggleMenu = () => {
 };
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 10;
+  if (typeof window !== 'undefined') {
+    isScrolled.value = window.scrollY > 10;
+  }
 };
 
 onMounted(() => {
@@ -95,8 +101,10 @@ useHead({
               <img
                 alt="AMB Removals Limited"
                 class="logo"
-                src="/src/assets/AmbLogo.png"
-                loading="lazy"
+                :src="ambLogo"
+                loading="eager"
+                width="115"
+                height="100"
               />
             </a>
           </div>
@@ -108,7 +116,7 @@ useHead({
             :aria-expanded="isMobileMenuOpen"
           >
             <i class="fas fa-bars" v-if="!isMobileMenuOpen"></i>
-            <i class="fas fa-times" v-else=""></i>
+            <i class="fas fa-times" v-else></i>
           </button>
           <div class="header-right-section">
             <div class="header-phone">
@@ -116,39 +124,32 @@ useHead({
                 <i class="fas fa-phone"></i> 0 (116) 456-0653
               </a>
             </div>
-            <el-menu
-              :default-active="$route.path"
-              :ellipsis="false"
-              class="desktop-menu"
-              mode="horizontal"
-              router=""
-            >
-              <el-menu-item index="/" router="/">Home</el-menu-item>
-              <el-menu-item index="/services" router="/services">Our Services</el-menu-item>
-              <el-menu-item index="/galery" router="/galery">Gallery</el-menu-item>
-              <el-menu-item index="/about" router="/about">About Us</el-menu-item>
-              <el-menu-item index="/contact" router="/contact">Contact</el-menu-item>
-              <el-menu-item index="/quote" router="/quote"> Request Quote</el-menu-item>
-            </el-menu>
+            <nav class="desktop-menu" aria-label="Main navigation">
+              <router-link to="/" :class="['nav-link', { active: $route.path === '/' }]">Home</router-link>
+              <router-link to="/services" :class="['nav-link', { active: $route.path === '/services' }]">Our Services</router-link>
+              <router-link to="/gallery" :class="['nav-link', { active: $route.path === '/gallery' }]">Gallery</router-link>
+              <router-link to="/about" :class="['nav-link', { active: $route.path === '/about' }]">About Us</router-link>
+              <router-link to="/contact" :class="['nav-link', { active: $route.path === '/contact' }]">Contact</router-link>
+              <router-link to="/quote" :class="['nav-link', { active: $route.path === '/quote' }]">Request Quote</router-link>
+            </nav>
           </div>
         </div>
       </el-header>
       <transition name="slide">
         <div v-if="isMobileMenuOpen" class="mobile-menu-overlay">
-          <div class="mobile-menu">
+          <nav class="mobile-menu" aria-label="Mobile navigation">
             <router-link to="/" @click="toggleMenu">Home</router-link>
             <router-link to="/services" @click="toggleMenu">Our Services</router-link>
-            <router-link to="/galery" @click="toggleMenu">Gallery</router-link>
+            <router-link to="/gallery" @click="toggleMenu">Gallery</router-link>
             <router-link to="/about" @click="toggleMenu">About Us</router-link>
             <router-link to="/contact" @click="toggleMenu">Contact</router-link>
             <router-link to="/quote" @click="toggleMenu">Request Quote</router-link>
-          </div>
+          </nav>
         </div>
       </transition>
       <el-main>
-        <!-- Page optimized for ambremovals SEO keyword -->
         <router-view></router-view>
-        <button @click="scrollToTop" class="scroll-to-top">
+        <button @click="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
           <i class="fas fa-arrow-up"></i>
         </button>
       </el-main>
@@ -158,7 +159,7 @@ useHead({
           <div class="footer-info">
             <h3>AMB Removals Limited</h3>
             <p>Professional Moving Service</p>
-            <p>2025 AMB Removals Limited. All rights reserved.</p>
+            <p>2026 AMB Removals Limited. All rights reserved.</p>
             <img
               alt="AMB Removals Assured"
               class="assured"
@@ -203,44 +204,34 @@ useHead({
           <div class="footer-nav">
             <h4>Navigation</h4>
             <ul>
-              <li><el-link @click="$router.push('/')">Home</el-link></li>
-              <li>
-                <el-link @click="$router.push('/services')">Our Services</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/about')">About Us</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/contact')">Contact</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/galery')">Gallery</el-link>
-              </li>
-              <li>
-                <el-link @click="$router.push('/quote')">Get a Quote</el-link>
-              </li>
+              <li><router-link to="/">Home</router-link></li>
+              <li><router-link to="/services">Our Services</router-link></li>
+              <li><router-link to="/about">About Us</router-link></li>
+              <li><router-link to="/contact">Contact</router-link></li>
+              <li><router-link to="/gallery">Gallery</router-link></li>
+              <li><router-link to="/quote">Get a Quote</router-link></li>
             </ul>
           </div>
           <div class="areas">
             <h4>Areas covered</h4>
             <ul>
+              <li><router-link to="/removals-leicester">Leicester</router-link></li>
+              <li><router-link to="/removals-nottingham">Nottingham</router-link></li>
+              <li><router-link to="/removals-derby">Derby</router-link></li>
+              <li><router-link to="/removals-coventry">Coventry</router-link></li>
+              <li><router-link to="/removals-northampton">Northampton</router-link></li>
+              <li><router-link to="/removals-loughborough">Loughborough</router-link></li>
+              <li><router-link to="/removals-market-harborough">Market Harborough</router-link></li>
+              <li><router-link to="/removals-lutterworth">Lutterworth</router-link></li>
+              <li><router-link to="/removals-hinckley">Hinckley</router-link></li>
+              <li><router-link to="/removals-rugby">Rugby</router-link></li>
               <li>Milton Keynes</li>
               <li>Tamworth</li>
               <li>Ashby-de-la-Zouch</li>
               <li>Royal Leamington Spa</li>
-              <li>Market Harborough</li>
-              <li>Lutterworth</li>
-              <li>Loughborough</li>
-              <li>Hinckley</li>
               <li>Oakham</li>
               <li>Coalville</li>
-              <li>Derby</li>
-              <li>Leicestershire</li>
               <li>Castle Donington</li>
-              <li>Nottingham</li>
-              <li>Coventry</li>
-              <li>Northampton</li>
-              <li>Rugby</li>
             </ul>
           </div>
         </div>
@@ -250,7 +241,7 @@ useHead({
 </template>
 <style scoped>
 .app-container {
-  padding: auto;
+  padding: 0;
 }
 
 @media (max-width: 890px) {
@@ -276,13 +267,6 @@ useHead({
   }
 }
 
-/*     width: 170px;
-    height: 88px; */
-.header-content.hidden {
-  /* top: -100px; */
-  background-color: rgb(0 0 0 / 64%);
-  position: sticky;
-}
 .header-inner .logo {
   margin-left: 43%;
 
@@ -293,15 +277,17 @@ useHead({
   position: relative;
   z-index: 1;
 }
-
-.el-menu-item {
-  background-color: #818a94;
-  color: white;
-  border-bottom: #cdbe22;
+.header-inner .logo img.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
+
 @media (max-width: 890px) {
   .header-content {
     height: 100px;
+    transition: none;
   }
   .header-inner {
     padding: 10px;
@@ -424,8 +410,12 @@ useHead({
   margin-bottom: 8px;
 }
 
-.footer-nav .el-link {
+.footer-nav a {
   color: bisque;
+  text-decoration: none;
+}
+.footer-nav a:hover {
+  text-decoration: underline;
 }
 .areas {
   flex: 1;
@@ -444,6 +434,13 @@ useHead({
 .areas li {
   margin-bottom: 8px;
   color: bisque;
+}
+.areas a {
+  color: bisque;
+  text-decoration: none;
+}
+.areas a:hover {
+  text-decoration: underline;
 }
 
 .social-links a {
@@ -489,38 +486,35 @@ useHead({
 
 .desktop-menu {
   display: none;
-  border: #545c64;
+  gap: 0;
 }
-.el-menu-item {
-  margin-bottom: -20px;
-  border: #545c64;
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #818a94;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
-
-.el-menu-item.is-active:hover {
+.nav-link:hover,
+.nav-link:focus {
   background-color: #545c64;
 }
-.el-menu-item:not(.is-disabled):hover {
+.nav-link.active {
   background-color: #545c64;
+  color: #409eff;
 }
-.el-menu-item:not(.is-disabled):focus {
-  background-color: #545c64;
-}
-/* .el-menu-item:hover {
-  background-color: #2fe1de;
-  color: #2fe1de;
-}
-.el-menu-item:focus {
-  color: #545c64;
-} */
 
 @media (min-width: 891px) and (max-width: 1444px) {
   .header-inner .logo {
     all: unset;
     margin-left: 10%;
     max-width: 300px;
-    max-height: 60px;
+    height: 80px;
     min-width: 115px;
-    min-height: 100px;
   }
 }
 .mobile-menu-toggle {
@@ -529,52 +523,6 @@ useHead({
   font-size: 30px;
   cursor: pointer;
   z-index: 1001;
-}
-
-.mobile-menu {
-  position: fixed;
-  top: 60px;
-  right: 0;
-  width: 100%;
-  height: 5%;
-  background: white;
-  z-index: 1001;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-  padding-top: 0;
-  background-color: #818a94;
-}
-
-.mobile-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: rgb(0 0 0 / 67%);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-}
-.el-menu-item.is-active {
-  background-color: #545c64;
-  color: #409eff;
-  border-bottom: #818a94;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s ease;
-}
-.slide-enter-from {
-  transform: translateY(-100%);
-}
-.slide-leave-to {
-  transform: translateY(-100%);
 }
 
 .scroll-to-top {
@@ -602,7 +550,7 @@ useHead({
   }
 
   .desktop-menu {
-    display: flex !important;
+    display: flex;
   }
 
   .mobile-menu-toggle,
@@ -620,34 +568,12 @@ useHead({
   }
 }
 
-/* Mobile Menu Styles */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 250px;
-  background-color: #818a94;
-  backdrop-filter: blur(10px);
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.mobile-menu.open {
-  transform: translateX(0);
-}
-
 .slide-enter-active,
 .slide-leave-active {
   transition: all 0.4s ease;
 }
 .slide-enter-from {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 .slide-enter-to {
@@ -659,7 +585,7 @@ useHead({
   opacity: 1;
 }
 .slide-leave-to {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 
@@ -677,12 +603,12 @@ useHead({
 .mobile-menu {
   position: fixed;
   top: 0;
-  right: 50%;
+  left: 0;
   width: 250px;
   height: 100%;
   background: #818a94;
   padding: 2rem;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -707,10 +633,17 @@ useHead({
 }
 
 @media (max-width: 890px) {
-  .header-content.scrolled {
-    padding: 0;
-    height: 100px;
+  .header-content {
+    transition: none;
   }
+  
+  .header-content.scrolled {
+    background-color: rgb(0 0 0 / 64%);
+    padding: 25px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: 11%;
+  }
+  
   .header-content.scrolled .header-inner {
     padding: 10px;
   }

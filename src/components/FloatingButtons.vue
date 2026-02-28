@@ -2,15 +2,19 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const isScrolled = ref(false);
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(false);
 const isOpen = ref(false);
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50;
+  if (typeof window !== 'undefined') {
+    isScrolled.value = window.scrollY > 50;
+  }
 };
 
 const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 768;
+  if (typeof window !== 'undefined') {
+    isMobile.value = window.innerWidth <= 768;
+  }
 };
 
 onMounted(() => {
@@ -26,7 +30,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <>
+  <div>
   <transition name="fade">
     <a
       v-if="!isScrolled"
@@ -48,51 +52,6 @@ onUnmounted(() => {
       </span>
     </a>
   </transition>
-  <!-- 
-        <transition name="fade">
-          <a
-            v-if="!isScrolled"
-            href="https://t.me/ambremovals"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="floating-button telegram-float"
-          >
-            <i class="fa-brands fa-telegram"></i>
-            <span class="button-text">
-              <span
-                v-for="(letter, idx) in 'Telegram'.split('')"
-                :key="idx"
-                class="letter"
-                :style="{ transitionDelay: `${idx * 50}ms` }"
-              >
-                {{ letter }}
-              </span>
-            </span>
-          </a>
-        </transition> -->
-
-  <!-- <transition name="fade">
-          <a
-            v-if="!isScrolled"
-            href="https://www.instagram.com/ambremovals/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="floating-button instagram-float"
-          >
-            <i class="fa-brands fa-instagram"></i>
-            <span class="button-text">
-              <span
-                v-for="(letter, idx) in 'Instagram'.split('')"
-                :key="idx"
-                class="letter"
-                :style="{ transitionDelay: `${idx * 50}ms` }"
-              >
-                {{ letter }}
-              </span>
-            </span>
-          </a>
-        </transition> -->
-
   <transition name="fade">
     <a v-if="!isScrolled" href="tel:01164560653" class="floating-button phone-float">
       <i class="fa-solid fa-phone"></i>
@@ -122,30 +81,6 @@ onUnmounted(() => {
     </a>
   </transition>
 
-  <!-- <transition name="scale-fade">
-          <a
-            v-if="isScrolled"
-            href="https://t.me/ambremovals"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="floating-button telegram-float sticky no-text"
-          >
-            <i class="fa-brands fa-telegram"></i>
-          </a>
-        </transition> -->
-
-  <!-- <transition name="scale-fade">
-          <a
-            v-if="isScrolled"
-            href="https://www.instagram.com/ambremovals/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="floating-button instagram-float sticky no-text"
-          >
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-        </transition> -->
-
   <transition name="scale-fade">
     <a v-if="isScrolled" href="tel:01164560653" class="floating-button phone-float sticky no-text">
       <i class="fa-solid fa-phone"></i>
@@ -155,35 +90,21 @@ onUnmounted(() => {
   <!-- MOBILE FAB -->
   <div class="mobile-fab" v-if="isScrolled && isMobile">
     <button class="main-fab" @click="isOpen = !isOpen">
-      <img src="@/assets/contact_AMB_Removals.png" alt="Contact" class="fab-icon" />
+      <img src="@/assets/contact_AMB_Removals.png" alt="Contact" class="fab-icon" width="55" height="55" />
     </button>
     <a
       href="https://wa.me/message/CHLGJLYSNVZLE1"
       target="_blank"
+      rel="noopener noreferrer"
       class="fab-child whatsapp"
       :class="{ open: isOpen }"
     >
       <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <!-- <a
-            href="https://t.me/ambremovals"
-            target="_blank"
-            class="fab-child telegram"
-            :class="{ open: isOpen }"
-          >
-            <i class="fa-brands fa-telegram"></i>
-          </a> -->
-    <!-- <a
-            href="https://www.instagram.com/ambremovals"
-            target="_blank"
-            class="fab-child instagram"
-            :class="{ open: isOpen }"
-          >
-            <i class="fa-brands fa-instagram"></i>
-          </a> -->
-    <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }">
+    <a href="tel:+447853451275" class="fab-child phone" :class="{ open: isOpen }" aria-label="Call us">
       <i class="fa-solid fa-phone"></i>
     </a>
+  </div>
   </div>
 </template>
 
@@ -229,19 +150,8 @@ onUnmounted(() => {
   background-color: #25d366;
 }
 
-.telegram-float {
-  left: 10rem;
-  background-color: #0088cc;
-}
-
-.instagram-float {
-  right: 10.3rem;
-  margin-top: -4rem;
-  background-color: #c13584;
-}
 .phone-float {
   left: 10.8rem;
-  /* margin-top: -1rem; */
   background-color: #333;
 }
 /* --- WHEN SCROLLING (sticky) --- */
@@ -276,18 +186,6 @@ onUnmounted(() => {
 .whatsapp-float.sticky {
   box-shadow: rgba(66, 219, 135, 1) 0px 0px 0px 0.00811595px;
   right: 20px;
-}
-
-.telegram-float.sticky {
-  box-shadow: rgb(38, 133, 221) 0px 0px 0px 0.00811595px;
-  left: 20px;
-}
-
-.instagram-float.sticky {
-  box-shadow: rgb(193, 53, 132) 0px 0px 0px 0.00811595px;
-  right: 20px;
-  bottom: calc(12rem + 70px); /* Above WhatsApp */
-  background-color: #c13584;
 }
 
 .phone-float.sticky {
@@ -363,15 +261,6 @@ onUnmounted(() => {
     background-color: #25d366;
   }
 
-  .telegram-float {
-    left: 2rem;
-    background-color: #0088cc;
-  }
-  .instagram-float {
-    right: 2.2rem;
-    margin-top: -4rem;
-    background-color: #c13584;
-  }
   .phone-float {
     left: 2.7em;
     /* margin-top: -4rem; */
@@ -382,19 +271,10 @@ onUnmounted(() => {
     right: auto !important;
   }
 
-  .telegram-float.sticky {
-    bottom: 10rem;
-  }
-
   .whatsapp-float.sticky {
     bottom: calc(10rem - 25px - 60px);
     left: 10px;
     right: auto !important;
-  }
-
-  .instagram-float.sticky {
-    bottom: calc(12rem + 70px);
-    right: 10px;
   }
 
   .phone-float.sticky {
@@ -474,8 +354,6 @@ onUnmounted(() => {
 
   /* When open, show children */
   .mobile-fab .fab-child.whatsapp,
-  .mobile-fab .fab-child.telegram,
-  .mobile-fab .fab-child.instagram,
   .mobile-fab .fab-child.phone {
     pointer-events: auto;
   }
@@ -484,14 +362,6 @@ onUnmounted(() => {
   .mobile-fab .fab-child.whatsapp {
     top: -70px;
     left: 55px;
-  }
-  .mobile-fab .fab-child.telegram {
-    top: -30px;
-    left: 75px;
-  }
-  .mobile-fab .fab-child.instagram {
-    top: 44px;
-    left: 80px;
   }
   .mobile-fab .fab-child.phone {
     top: 59px;
@@ -507,12 +377,6 @@ onUnmounted(() => {
 
   .fab-child.whatsapp {
     background-color: #25d366;
-  }
-  .fab-child.telegram {
-    background-color: #0088cc;
-  }
-  .fab-child.instagram {
-    background-color: #c13584;
   }
   .fab-child.phone {
     background-color: #333;
@@ -541,19 +405,4 @@ onUnmounted(() => {
   }
 }
 
-/* ----- PULSING ANIMATION ----- */
-@keyframes pulsing {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 </style>

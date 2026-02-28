@@ -1,24 +1,88 @@
 <script setup lang="ts">
+import { onMounted, nextTick } from 'vue';
+import { useRoute } from 'vue-router';
 import { Van, OfficeBuilding, Box } from '@element-plus/icons-vue';
 import stickyButtons from '../components/stickyButtons.vue';
 import { useHead } from '@vueuse/head';
 
+const route = useRoute();
+
+function scrollToHash() {
+  if (typeof window === 'undefined') return;
+  const hash = route.hash;
+  if (!hash) return;
+  const el = document.querySelector(hash);
+  if (!el) return;
+  const navbar = document.querySelector('.header-content') as HTMLElement | null;
+  const offset = navbar ? navbar.offsetHeight + 20 : 120;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+onMounted(() => {
+  nextTick(() => {
+    setTimeout(scrollToHash, 100);
+  });
+});
+
 useHead({
-  title: 'Our Services | AMB Removals - Professional Moving Services',
+  title: 'Our Services - Professional Moving Solutions',
   meta: [
     {
       name: 'description',
       content:
-        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across Leicestershire and the UK.',
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
     },
     {
       name: 'keywords',
       content:
-        'AMB Removals, house removals, office moving, packing services, Leicester removals, professional movers, relocation services',
+        'AMB Removals, house removals, office moving, packing services, man with a van, removals Midlands, removals Leicester, removals Nottingham, removals Derby, removals Coventry, professional movers, relocation services',
     },
     {
       name: 'robots',
       content: 'index, follow',
+    },
+    {
+      property: 'og:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
+    },
+    {
+      property: 'og:url',
+      content: 'https://ambremovals.com/services',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'og:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Our Services - Professional Moving Solutions | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Discover AMB Removals professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
   ],
   link: [
@@ -27,17 +91,59 @@ useHead({
       href: 'https://ambremovals.com/services',
     },
   ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: 'Moving Services',
+        provider: {
+          '@type': 'MovingCompany',
+          name: 'AMB Removals',
+          url: 'https://ambremovals.com',
+          telephone: '+44 116 456 0653',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '42 The Crescent, Blaby',
+            addressLocality: 'Leicester',
+            addressRegion: 'Leicestershire',
+            postalCode: 'LE8 4FN',
+            addressCountry: 'GB',
+          },
+        },
+        areaServed: {
+          '@type': 'Place',
+          name: 'The Midlands and the UK',
+        },
+        description:
+          'Professional moving services including house removals, office relocations, and packing services across the Midlands and the UK.',
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Our Services', item: 'https://ambremovals.com/services' },
+        ],
+      }),
+    },
+  ],
 });
 
 const services = [
   {
+    id: 'house-moving',
     icon: Van,
     title: 'House Moving Services',
     content: {
       intro: [
-        '🏠 House Removals in Leicestershire – Professional Home Moving Services',
-        "Moving house in Leicester or the surrounding areas? Whether you're upgrading to a larger home, relocating to another city, or downsizing, AMB Removals is here to make your house move smooth, stress-free, and efficient.",
-        "As a trusted Leicester removals company, we specialise in residential moving services tailored to your exact needs. With years of experience, a reliable team, and great customer feedback, we take care of everything — so you don't have to.",
+        '🏠 Professional House Removals Across the Midlands',
+        "Moving house? Whether you're upgrading to a larger home, relocating to another city, or downsizing, AMB Removals is here to make your house move smooth, stress-free, and efficient. We cover Leicester, Nottingham, Derby, Coventry, Northampton and surrounding areas.",
+        "As a trusted removals company, we specialise in residential moving services tailored to your exact needs. With years of experience, a reliable team, and great customer feedback, we take care of everything — so you don't have to.",
       ],
       featuresTitle: "✅ What's Included in Our House Moving Service",
       featuresSubtitle: 'We provide everything you need for a successful home move:',
@@ -49,20 +155,21 @@ const services = [
         '💬 Clear, upfront pricing with no hidden charges',
       ],
       closing: [
-        "Whether you're moving across Leicester or to another part of the UK, your belongings are safe in our hands.",
-        "📞 Ready to Move? Let AMB Removals take the stress out of moving day. We're proud to be one of the top-rated house removal companies in Leicester, known for care, speed, and customer satisfaction.",
+        "Whether you're moving locally or to another part of the UK, your belongings are safe in our hands.",
+        "📞 Ready to Move? Let AMB Removals take the stress out of moving day. We're proud to be one of the top-rated house removal companies in the Midlands, known for care, speed, and customer satisfaction.",
         '👉 Get your FREE moving quote today – fast, friendly, and no obligation.',
       ],
     },
   },
   {
+    id: 'office-moving',
     icon: OfficeBuilding,
     title: 'Office Moving',
     content: {
       intro: [
-        '🏢 Office Removals in Leicester – Business Relocation Made Simple',
-        'Relocating your office in Leicester or nearby areas? At AMB Removals, we understand that time is money — and we make sure your office move is fast, efficient, and disruption-free.',
-        "Whether you're a small business upgrading to a larger space or a company moving departments across the city, our professional office movers handle everything with minimal downtime.",
+        '🏢 Office Removals – Business Relocation Made Simple',
+        'Relocating your office? At AMB Removals, we understand that time is money — and we make sure your office move is fast, efficient, and disruption-free across the Midlands and beyond.',
+        "Whether you're a small business upgrading to a larger space or a company moving departments, our professional office movers handle everything with minimal downtime.",
       ],
       featuresTitle: '✅ Our Office Moving Services Include:',
       features: [
@@ -73,12 +180,13 @@ const services = [
         '🧹 Optional post-move cleanup and waste disposal',
       ],
       closing: [
-        'We serve businesses across Leicester, Loughborough, Hinckley, Wigston, and the wider East Midlands.',
+        'We serve businesses across the Midlands including Leicester, Nottingham, Derby, Coventry, Northampton, Loughborough, and surrounding areas.',
         '📞 Book Your Office Move Today Keep your team focused — and let us handle the logistics. Contact AMB Removals for a free quote and expert advice on your upcoming business relocation.',
       ],
     },
   },
   {
+    id: 'packing-services',
     icon: Box,
     title: 'Packing Services',
     content: {
@@ -101,6 +209,30 @@ const services = [
       ],
     },
   },
+  {
+    id: 'man-with-van',
+    icon: Van,
+    title: 'Man with a Van',
+    content: {
+      intro: [
+        '🚐 Man with a Van – Affordable, Flexible Moving',
+        "Need something moved quickly and affordably? Our man with a van service is perfect for single items, student moves, small flat relocations, and marketplace collections across the Midlands.",
+      ],
+      featuresTitle: "✅ What's Included in Our Man with a Van Service:",
+      features: [
+        '🚛 Spacious van suitable for single items up to full small flat loads',
+        '💪 Full loading and unloading assistance included',
+        '⏱️ Same-day and next-day availability (subject to schedule)',
+        '🔐 Fully insured for your peace of mind',
+        '💰 Transparent, competitive pricing with no hidden fees',
+      ],
+      closing: [
+        "Whether you need a sofa collected, a student room moved, or an eBay purchase delivered, we've got you covered.",
+        '📞 Book Your Man with a Van Today Save time and hassle with our affordable, reliable man with a van service. Contact AMB Removals for a quick, no-obligation quote.',
+        '👉 Get your FREE quote today – flexible, affordable and fully insured.',
+      ],
+    },
+  },
 ];
 </script>
 
@@ -118,7 +250,7 @@ const services = [
 
     <!-- Services Section -->
     <div class="services-container">
-      <div class="service-item" v-for="(service, index) in services" :key="index">
+      <div class="service-item" v-for="(service, index) in services" :key="index" :id="service.id">
         <el-card class="service-card">
           <div class="service-header">
             <el-icon class="service-icon">
@@ -162,6 +294,45 @@ const services = [
               >
                 {{ paragraph }}
               </p>
+            </div>
+
+            <div class="service-cta">
+              <el-button
+                v-if="index === 0"
+                type="primary"
+                size="large"
+                @click="$router.push('/house-removal')"
+                class="service-link-button"
+              >
+                Find Out More About House Moving
+              </el-button>
+              <el-button
+                v-else-if="index === 1"
+                type="primary"
+                size="large"
+                @click="$router.push('/business-moving')"
+                class="service-link-button"
+              >
+                Find Out More About Office Moving
+              </el-button>
+              <el-button
+                v-else-if="index === 2"
+                type="primary"
+                size="large"
+                @click="$router.push('/packing-services')"
+                class="service-link-button"
+              >
+                Find Out More About Packing Services
+              </el-button>
+              <el-button
+                v-else-if="index === 3"
+                type="primary"
+                size="large"
+                @click="$router.push('/man-with-van')"
+                class="service-link-button"
+              >
+                Find Out More About Man with a Van
+              </el-button>
             </div>
           </div>
         </el-card>
@@ -342,6 +513,28 @@ const services = [
   text-align: justify;
 }
 
+.service-cta {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 2px solid #e9ecef;
+}
+
+.service-link-button {
+  background-color: #409eff;
+  border-color: #409eff;
+  font-size: 1rem;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+}
+
+.service-link-button:hover {
+  background-color: #66b1ff;
+  border-color: #66b1ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+}
+
 .cta-section {
   background: linear-gradient(135deg, #545c64 0%, #303133 100%);
   color: #fff;
@@ -438,6 +631,12 @@ const services = [
 
   .cta-section p {
     font-size: 1rem;
+  }
+
+  .service-link-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    width: 100%;
   }
 }
 

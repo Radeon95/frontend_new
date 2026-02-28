@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import stickyButtons from '../components/stickyButtons.vue';
+
+const router = useRouter();
+const isSubmitting = ref(false);
+const recaptchaToken = ref('');
+
 // Объявляем типы для глобального объекта window
 declare global {
   interface Window {
@@ -9,8 +15,6 @@ declare global {
     onRecaptchaExpired: () => void;
   }
 }
-const isSubmitting = ref(false);
-const recaptchaToken = ref('');
 
 const formRef = ref<FormInstance>();
 const form = reactive({
@@ -112,7 +116,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
 
   try {
-    isSubmitting.value = true; // Start loading
+    isSubmitting.value = true;
     // Validate form
     const valid = await formEl.validate();
     if (valid) {
@@ -130,14 +134,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         return;
       }
 
-      // Add recaptcha token to form data
-      const formDataWithRecaptcha = {
-        ...form,
-        recaptchaToken: recaptchaToken.value,
-      };
-
-      // Send email with all form data
-      await sendEmail(formDataWithRecaptcha);
+      // Send email with form data
+      await sendEmail(form);
 
       // Success message
       ElMessage({
@@ -147,9 +145,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
       // Reset the form after success
       formEl.resetFields();
+
+      // Redirect to thank you page after a short delay
+      setTimeout(() => {
+        router.push('/thank-you');
+      }, 1000);
     } else {
       // Error message if validation fails
-
       ElMessage({
         message: 'Please check the form for errors',
         type: 'error',
@@ -163,7 +165,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     });
     console.error('Error:', error);
   } finally {
-    isSubmitting.value = false; // End loading
+    isSubmitting.value = false;
   }
 };
 
@@ -173,28 +175,28 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 
-// Send email function that posts all form data to the endpoint
+// Send email to /api/send-email endpoint
 const sendEmail = async (formData: typeof form) => {
-  // Log the data being sent
-  console.log('Sending form data:', formData);
-
   try {
-    // Send POST request to the endpoint with all form data
     const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+      }),
     });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json();
-    console.log('Response:', data);
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('Error sending email:', error);
     throw error;
@@ -205,12 +207,12 @@ const sendEmail = async (formData: typeof form) => {
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: 'Contact Us | AMB Removals - Get in Touch Today',
+  title: 'Contact Us - Get in Touch Today',
   meta: [
     {
       name: 'description',
       content:
-        'Contact AMB Removals for expert moving services in the UK. Our ambremovals team is here to help with local and nationwide removals.',
+        'Contact AMB Removals for expert moving services across Leicester, Nottingham, Derby, Coventry and the wider Midlands. Get a free quote or speak to our friendly team today.',
     },
     {
       name: 'keywords',
@@ -218,7 +220,7 @@ useHead({
         'contact AMB Removals, ambremovals, moving company UK, removal services, office move, packing, relocation experts',
     },
     { name: 'robots', content: 'index, follow' },
-    { property: 'og:title', content: 'Contact AMB Removals | UK Moving Experts' },
+    { property: 'og:title', content: 'Contact Us - Get in Touch Today | AMB Removals' },
     {
       property: 'og:description',
       content:
@@ -230,8 +232,42 @@ useHead({
       property: 'og:image',
       content: 'https://ambremovals.com/AMB_Removals.jpg',
     },
+    {
+      property: 'og:site_name',
+      content: 'AMB Removals',
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    },
+    {
+      name: 'twitter:title',
+      content: 'Contact Us - Get in Touch Today | AMB Removals',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Reach out to the ambremovals team for professional relocation and removal assistance across the UK.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://ambremovals.com/AMB_Removals.jpg',
+    },
   ],
   link: [{ rel: 'canonical', href: 'https://ambremovals.com/contact' }],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ambremovals.com' },
+          { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://ambremovals.com/contact' },
+        ],
+      }),
+    },
+  ],
 });
 </script>
 
@@ -276,6 +312,9 @@ useHead({
                 <p>
                   <a href="mailto:support@ambremovals.com">support@ambremovals.com</a>
                 </p>
+                <p>
+                  <a href="mailto:sales@ambremovals.com">sales@ambremovals.com</a>
+                </p>
               </div>
             </div>
             <div class="info-item">
@@ -294,6 +333,7 @@ useHead({
                     href="https://www.facebook.com/ambremovalslimited"
                     title="Facebook"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                   >
                     <i class="fab fa-facebook-f"></i></a
@@ -302,6 +342,7 @@ useHead({
                   <a
                     href="https://www.instagram.com/ambremovals/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     title="Instagram"
                     class="social-icons"
                   >
@@ -313,14 +354,16 @@ useHead({
                     href="https://t.me/ambremovals"
                     title="Telegram"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                     ><i class="fab fa-telegram-plane"></i></a
                 ></el-button>
                 <el-button circle
                   ><a
                     href="https://wa.me/message/CHLGJLYSNVZLE1"
-                    title="WatsApp"
+                    title="WhatsApp"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="social-icons"
                   >
                     <i class="fab fa-whatsapp"></i
@@ -403,22 +446,6 @@ useHead({
       </el-row>
     </div>
 
-    <!-- Map -->
-    <!-- <div class="map-section">
-      <h2 class="section-title">Find Us on the Map</h2>
-      <div class="map-container">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d268442.914637112!2d-1.614417196211072!3d52.53376236482253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d4ae70306a7fed%3A0xbfcfb2d2858c6b73!2sAMB%20Removals%20Limited!5e0!3m2!1sen!2s!4v1740991540006!5m2!1sen!2s"
-          width="1200"
-          height="600"
-          style="border: 0"
-          allowfullscreen="false"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-    </div> -->
-
     <!-- FAQ -->
     <div class="section faq-section">
       <h2 class="section-title">Frequently Asked Questions</h2>
@@ -443,9 +470,6 @@ useHead({
         </el-collapse-item>
       </el-collapse>
     </div>
-  </div>
-  <div style="position: absolute; left: -9999px; top: -9999px" aria-hidden="true">
-    AMB Removals - ambremovals contact and support information
   </div>
 </template>
 
@@ -563,18 +587,6 @@ useHead({
   color: #606266;
 }
 
-.map-section {
-  padding: 0 0 60px 0;
-}
-
-.map-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
 .faq-section {
   background-color: #f5f7fa;
 }
@@ -607,13 +619,13 @@ useHead({
   }
 }
 @media (min-width: 768px) {
-  .faq-section ::v-deep(.el-collapse-item__header) {
+  .faq-section :deep(.el-collapse-item__header) {
     font-size: 22px; /* Adjust the value as needed */
     font-weight: 600;
     margin-bottom: 1rem;
   }
 
-  .faq-section ::v-deep(.el-collapse-item__content) {
+  .faq-section :deep(.el-collapse-item__content) {
     font-size: 19px; /* Optional: for answer text */
   }
 }
