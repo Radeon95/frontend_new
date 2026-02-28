@@ -78,7 +78,7 @@ button:focus-visible {
   text-align: left;
 }
 
-/* Общие стили для секций */
+/* Common section styles */
 .section {
   padding: 60px 20px;
   max-width: 1200px;
@@ -91,7 +91,7 @@ button:focus-visible {
   color: #303133;
 }
 
-/* Медиа-запросы */
+/* Responsive */
 @media (max-width: 768px) {
   .section {
     padding: 40px 20px;

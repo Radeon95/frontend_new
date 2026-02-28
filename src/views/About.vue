@@ -197,13 +197,11 @@ useHead({
           <div class="stat-card">
             <h3 v-if="index === 0">100+</h3>
             <h3 v-else-if="index === 1">98%</h3>
-            <h3 v-else-if="index === 2">5+</h3>
-            <!-- <h3 v-else>24/7</h3> -->
+            <h3 v-else>5+</h3>
 
             <p v-if="index === 0">Successful Moves</p>
             <p v-else-if="index === 1">Satisfied Clients</p>
-            <p v-else-if="index === 2">Years in Business</p>
-            <!--  <p v-else>Customer Support</p> -->
+            <p v-else>Years in Business</p>
           </div>
         </el-col>
       </el-row>

@@ -921,7 +921,8 @@ useHead({
   display: flex;
   flex-direction: column;
   gap: 18px;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   height: auto;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
 }
@@ -1114,7 +1115,8 @@ useHead({
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
 }
 
@@ -1273,7 +1275,7 @@ useHead({
 
   .step-card {
     height: auto;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .exceptional-service {

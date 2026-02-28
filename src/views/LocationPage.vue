@@ -948,6 +948,12 @@ useHead({
   border-radius: 8px;
   padding: 30px 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.step-card img {
+  margin: 0 auto;
+  display: block;
 }
 
 .step-icon {

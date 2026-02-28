@@ -19,8 +19,8 @@
       />
     </transition>
     <div v-if="!isMobile" class="lightbox-controls">
-      <button @click.stop="prev">‹</button>
-      <button @click.stop="next">›</button>
+      <button @click.stop="prev" aria-label="Previous image">‹</button>
+      <button @click.stop="next" aria-label="Next image">›</button>
     </div>
   </div>
 </template>

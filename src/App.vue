@@ -116,7 +116,7 @@ useHead({
             :aria-expanded="isMobileMenuOpen"
           >
             <i class="fas fa-bars" v-if="!isMobileMenuOpen"></i>
-            <i class="fas fa-times" v-else=""></i>
+            <i class="fas fa-times" v-else></i>
           </button>
           <div class="header-right-section">
             <div class="header-phone">
@@ -148,7 +148,6 @@ useHead({
         </div>
       </transition>
       <el-main>
-        <!-- Page optimized for ambremovals SEO keyword -->
         <router-view></router-view>
         <button @click="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
           <i class="fas fa-arrow-up"></i>
@@ -268,13 +267,6 @@ useHead({
   }
 }
 
-/*     width: 170px;
-    height: 88px; */
-.header-content.hidden {
-  /* top: -100px; */
-  background-color: rgb(0 0 0 / 64%);
-  position: sticky;
-}
 .header-inner .logo {
   margin-left: 43%;
 
@@ -521,9 +513,8 @@ useHead({
     all: unset;
     margin-left: 10%;
     max-width: 300px;
-    max-height: 60px;
+    height: 80px;
     min-width: 115px;
-    min-height: 100px;
   }
 }
 .mobile-menu-toggle {
@@ -532,47 +523,6 @@ useHead({
   font-size: 30px;
   cursor: pointer;
   z-index: 1001;
-}
-
-.mobile-menu {
-  position: fixed;
-  top: 60px;
-  right: 0;
-  width: 100%;
-  height: 5%;
-  background: white;
-  z-index: 1001;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-  padding-top: 0;
-  background-color: #818a94;
-}
-
-.mobile-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: rgb(0 0 0 / 67%);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s ease;
-}
-.slide-enter-from {
-  transform: translateY(-100%);
-}
-.slide-leave-to {
-  transform: translateY(-100%);
 }
 
 .scroll-to-top {
@@ -618,34 +568,12 @@ useHead({
   }
 }
 
-/* Mobile Menu Styles */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 250px;
-  background-color: #818a94;
-  backdrop-filter: blur(10px);
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.mobile-menu.open {
-  transform: translateX(0);
-}
-
 .slide-enter-active,
 .slide-leave-active {
   transition: all 0.4s ease;
 }
 .slide-enter-from {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 .slide-enter-to {
@@ -657,7 +585,7 @@ useHead({
   opacity: 1;
 }
 .slide-leave-to {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 
@@ -675,12 +603,12 @@ useHead({
 .mobile-menu {
   position: fixed;
   top: 0;
-  right: 50%;
+  left: 0;
   width: 250px;
   height: 100%;
   background: #818a94;
   padding: 2rem;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

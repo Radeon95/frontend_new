@@ -446,22 +446,6 @@ useHead({
       </el-row>
     </div>
 
-    <!-- Map -->
-    <!-- <div class="map-section">
-      <h2 class="section-title">Find Us on the Map</h2>
-      <div class="map-container">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d268442.914637112!2d-1.614417196211072!3d52.53376236482253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d4ae70306a7fed%3A0xbfcfb2d2858c6b73!2sAMB%20Removals%20Limited!5e0!3m2!1sen!2s!4v1740991540006!5m2!1sen!2s"
-          width="1200"
-          height="600"
-          style="border: 0"
-          allowfullscreen="false"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-    </div> -->
-
     <!-- FAQ -->
     <div class="section faq-section">
       <h2 class="section-title">Frequently Asked Questions</h2>

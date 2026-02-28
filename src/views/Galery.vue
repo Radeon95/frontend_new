@@ -3,7 +3,6 @@
     <stickyButtons />
     <div class="gallery-section">
       <h1 class="section-title">Our Removals Gallery</h1>
-      <!-- Page optimized for ambremovals SEO keyword -->
       <div class="gallery-grid">
         <img
           v-for="(img, index) in galleryImages"
@@ -55,7 +54,7 @@ function getAlt(path: string) {
   return `ambremovals / AMB Removals – ${name}`;
 }
 useHead({
-  title: 'Our Removals Gallery - AMB Removals Photo Showcase',
+  title: 'Our Removals Gallery',
   meta: [
     {
       name: 'description',

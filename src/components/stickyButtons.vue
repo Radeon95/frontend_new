@@ -149,10 +149,6 @@ function trackWhatsappClick() {
     right: auto !important; /* Remove right alignment */
   }
 
-  .telegram-float.sticky {
-    bottom: 10rem; /* Telegram higher */
-  }
-
   .whatsapp-float.sticky {
     bottom: calc(10rem - 25px - 60px); /* WhatsApp 25px lower */
     left: 10px; /* Force same left alignment */
@@ -163,13 +159,6 @@ function trackWhatsappClick() {
   right: 10rem;
   background-color: #25d366;
 }
-
-.telegram-float {
-  left: 10rem;
-  background-color: #0088cc;
-}
-
-/*  */
 
 .floating-button {
   color: white;
@@ -197,8 +186,6 @@ function trackWhatsappClick() {
 @media (max-width: 768px) {
   /* Hide normal floating buttons */
   .whatsapp-float,
-  .telegram-float,
-  .instagram-float,
   .phone-float {
     display: none !important;
   }
@@ -317,19 +304,4 @@ function trackWhatsappClick() {
   }
 }
 
-/* ----- PULSING ANIMATION ----- */
-@keyframes pulsing {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 </style>

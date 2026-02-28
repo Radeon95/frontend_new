@@ -30,8 +30,6 @@ const galleryImages = ref<{ src: string; alt: string }[]>(
   })
 );
 
-// Contacts:
-
 onMounted(() => {
   const el = document.querySelector('.elfsight-app-9cd0abc5-08e1-4dc1-8ccd-0f60387d7b18');
 
@@ -93,7 +91,7 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'AMB Removals | Fast & Secure Moving Services',
+      content: 'Fast & Secure Moving Services | AMB Removals',
     },
     {
       property: 'og:description',
@@ -121,7 +119,7 @@ useHead({
     },
     {
       name: 'twitter:title',
-      content: 'AMB Removals | Fast & Secure Moving Services',
+      content: 'Fast & Secure Moving Services | AMB Removals',
     },
     {
       name: 'twitter:description',
@@ -331,7 +329,6 @@ useHead({
 
 <template>
   <div class="home-container">
-    <!-- Баннер -->
     <div class="hero-section">
       <img
         src="/AMB_Removals.jpg"
@@ -375,10 +372,7 @@ useHead({
 
     <WhyUs @open-quote="showQuoteModal = true" />
 
-    <!-- Customer Reviews Widget -->
-    <!-- <div class="elfsight-app-9cd0abc5-08e1-4dc1-8ccd-0f60387d7b18"></div> -->
-
-    <!-- Как мы работаем -->
+    <!-- How It Works -->
     <div class="section how-we-work-section">
       <h2 class="section-title">How It Works</h2>
       <el-steps :active="4" finish-status="success" simple class="how-it-works-steps">
@@ -396,10 +390,8 @@ useHead({
     <FaqSection />
 
     <ReviewsSection />
-    <!-- Призыв к действию -->
     <div class="cta-section">
       <h2>Ready for moving?</h2>
-      <!-- <p>Contact us  </p> -->
       <el-button type="primary" size="large" @click="$router.push('/quote')">
         Request Quote
       </el-button>
@@ -667,9 +659,6 @@ useHead({
   color: bisque;
   border: none;
   margin-top: 20px;
-  justify-content: space-between;
-  margin-left: 6rem;
-  margin-right: 7rem;
 }
 
 @media (max-width: 768px) {
